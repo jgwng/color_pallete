@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage>  {
                    children: [
                      Text('PALETTE',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.blue,fontSize: 30,fontFamily: 'Staatliches'),),
                      SizedBox(width:40),
-                     Text('스페이스 바를 눌러 팔레트에 변화를 확인하세요',style: TextStyle(fontSize: 15))
+                     Text('스페이스 바를 눌러 팔레트에 변화를 확인하세요',style: TextStyle(fontSize: 12,color: Colors.grey[400],fontFamily: 'SpoqaHanSansNeo'))
                    ],
                  ),
                  Row(
@@ -91,10 +91,10 @@ class _MyHomePageState extends State<MyHomePage>  {
                        style: TextButton.styleFrom(
                          primary: Colors.grey, // foreground
                        ),
-                       onPressed: () {},
+                       onPressed: () => showAuthDialog(context),
                        child: Padding(
                          padding: EdgeInsets.all(15.0),
-                        child: Text('회원가입',style : TextStyle(fontSize: 15)),
+                        child: Text('회원가입',style : TextStyle(fontSize: 15,fontFamily: 'SpoqaHanSansNeo')),
                        ),
                      ),
                      SizedBox(width:10),
@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage>  {
                              elevation: MaterialStateProperty.all<double>(0.0),
                            ),
                            onPressed: () async {},
-                           child: Text('로그인',style: TextStyle(fontSize: 15,color: Colors.white),),
+                           child: Text('로그인',style: TextStyle(fontSize: 15,color: Colors.white,fontFamily: 'SpoqaHanSansNeo'),),
                          )
                      )
                    ],
@@ -132,11 +132,12 @@ class _MyHomePageState extends State<MyHomePage>  {
                 children: [
                   Padding(
                     padding : EdgeInsets.only(top: 10,bottom: 10,right: 10),
-                    child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[200],),
+                    child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[400],),
                   ),
                   Tooltip(
                       message: '이전 팔레트',
                       preferBelow: false,
+                      textStyle: TextStyle(fontSize: 10,color: Colors.white),
                       child : IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.arrow_left_square,size:30))),
                   SizedBox(width: 10,),
                   Tooltip(
@@ -146,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage>  {
                       child : IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.arrow_right_square,size:30))),
                   Padding(
                     padding : EdgeInsets.only(top: 10,bottom: 10,left: 10),
-                    child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[200],),
+                    child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[400],),
                   ),
                   GestureDetector(
                     onTap: ()=> showPaletteDetailDialog(context),
@@ -156,13 +157,17 @@ class _MyHomePageState extends State<MyHomePage>  {
                         Tooltip(
                             message: '상세정보 확인',
                             preferBelow: false,
+                            textStyle: TextStyle(fontSize: 10,color: Colors.white),
                             child : IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.eye,size:30,color: Colors.black,))),
                         SizedBox(width: 10,),
-                        Text('팔레트 상세 정보'),
+                        Padding(
+                          padding: EdgeInsets.only(top:5),
+                          child: Text('팔레트 상세 정보',style: TextStyle(fontSize: 12,color: Colors.black,fontFamily: 'SpoqaHanSansNeo')),
+                        ),
                         SizedBox(width: 10,),
                         Padding(
                           padding : EdgeInsets.only(top: 10,bottom: 10,left: 10),
-                          child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[200],),
+                          child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[400],),
                         )
                       ],
                     ),
@@ -172,7 +177,10 @@ class _MyHomePageState extends State<MyHomePage>  {
                       SizedBox(width: 10,),
                       IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.bookmark,size:30,color: Colors.black,)),
                       SizedBox(width: 10,),
-                      Text('팔레트 저장'),
+                      Padding(
+                        padding: EdgeInsets.only(top:5),
+                        child: Text('팔레트 저장',style: TextStyle(fontSize: 12,color: Colors.black,fontFamily: 'SpoqaHanSansNeo')),
+                      ),
                       SizedBox(width: 10,),
                     ],
                   )
@@ -248,6 +256,7 @@ class _MyHomePageState extends State<MyHomePage>  {
   Widget listIconItem(IconData icon){
     return Tooltip(
       message: 'Clear Icon',
+      textStyle: TextStyle(fontSize: 10,color: Colors.white),
       child: MouseRegion(
         onEnter: (details) => print('icon enter'),
         onExit: (details) => print('icon exit'),
