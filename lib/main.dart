@@ -1,8 +1,10 @@
 import 'package:colorpallete/route_generator.dart';
 import 'package:colorpallete/show_dialog.dart';
+import 'package:colorpallete/ui/widget/color_code_copy_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:url_strategy/url_strategy.dart';
 
@@ -37,6 +39,8 @@ class _MyHomePageState extends State<MyHomePage>  {
   static final appContainer = html.window.document.getElementById('app-container');
   FocusNode? focusNode;
   List<dynamic> paletteList = [];
+  FToast? fToast;
+
 
   @override
   void initState() {
@@ -44,7 +48,8 @@ class _MyHomePageState extends State<MyHomePage>  {
     focusNode = FocusNode();
     appContainer!.addEventListener('mouseout', (event) => mouseOut());
     paletteList.add(colorList);
-
+    fToast = FToast();
+    fToast!.init(context);
   }
 
   @override
@@ -269,7 +274,17 @@ class _MyHomePageState extends State<MyHomePage>  {
         onEnter: (details) => print('icon enter'),
         onExit: (details) => print('icon exit'),
         child: IconButton(
-          onPressed: () => print('pressed'),
+          onPressed: () {
+
+
+            fToast!.showToast(
+              child: CodeCopyToast(),
+              gravity: ToastGravity.BOTTOM,
+              toastDuration: Duration(seconds: 2),
+            );
+
+            // Custom Toast Position
+          },
           icon: listIcon(index),
         ),
       ),
