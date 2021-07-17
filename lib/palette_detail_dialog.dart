@@ -9,13 +9,40 @@ class PaletteDetailDialog extends StatefulWidget{
 }
 
 class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
-  int colorIndex = 0;
-  int currentIndex = -1;
-  List<Color> colorList = [Colors.red,Colors.blue,Colors.purple,Colors.green,Colors.orange];
-  List<String> colorKindList = ['RGB','HEX','HSB','HSL','CMYK','LAB','XYZ','HSP'];
+
+
+
+
+  int? colorIndex;
+  int? currentIndex;
+  FocusNode? focusNode;
+  List<Color>? colorList;
+  List<String>? colorKindList;
+
+  @override
+  void initState(){
+    super.initState();
+    colorIndex = 0;
+    currentIndex = -1;
+    colorList = [Colors.red,Colors.blue,Colors.purple,Colors.green,Colors.orange];
+    colorKindList = ['RGB','HEX','HSB','HSL','CMYK','LAB','XYZ','HSP'];
+    focusNode = FocusNode();
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
-    return Dialog(
+    return RawKeyboardListener(
+        autofocus: true,
+        focusNode: focusNode!,
+        onKey: (event){
+          if(event.isKeyPressed(LogicalKeyboardKey.escape)){
+            Navigator.pop(context);
+          }
+        },
+    child:Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0))
       ),
@@ -52,11 +79,11 @@ class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
             ),
             Container(
               height: 300,
-              color: colorList[colorIndex],
+              color: colorList![colorIndex!],
               child: ListView.separated(
-                separatorBuilder: (ctx,i) => Divider(height: 1,thickness: 1,color: (colorList[colorIndex].computeLuminance() <=0.5) ? Colors.white : Colors.black,),
+                separatorBuilder: (ctx,i) => Divider(height: 1,thickness: 1,color: (colorList![colorIndex!].computeLuminance() <=0.5) ? Colors.white : Colors.black,),
                 itemBuilder: (ctx,i) => colorDetailInfo(i),
-                itemCount: colorKindList.length,
+                itemCount: colorKindList!.length,
                 shrinkWrap: true,
               ),
             ),
@@ -82,7 +109,7 @@ class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
         ),
 
       ),
-    );
+    ));
   }
   Widget colorDetailInfo(int index){
     return  MouseRegion(
@@ -103,12 +130,12 @@ class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${colorKindList[index]}',style: TextStyle(color: (colorList[colorIndex].computeLuminance() <=0.5) ? Colors.white : Colors.black,fontSize: 14)),
+                    Text('${colorKindList![index]}',style: TextStyle(color: (colorList![colorIndex!].computeLuminance() <=0.5) ? Colors.white : Colors.black,fontSize: 14)),
                     SizedBox(height: 5,),
                     Text('${colorValue(index)}',style: TextStyle(fontFamily: 'SpoqaHanSansNeo',fontSize: 16),),
                   ],
                 ),
-                Text('색상값 복사하기',style: TextStyle(color: (index == currentIndex) ? ((colorList[colorIndex].computeLuminance() <=0.5) ? Colors.white : Colors.black) :Colors.transparent ,fontFamily: 'SpoqaHanSansNeo'))
+                Text('색상값 복사하기',style: TextStyle(color: (index == currentIndex) ? ((colorList![colorIndex!].computeLuminance() <=0.5) ? Colors.white : Colors.black) :Colors.transparent ,fontFamily: 'SpoqaHanSansNeo'))
               ],
             )),
       ),
@@ -132,7 +159,7 @@ class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
                 topRight: Radius.circular((index == 4) ? 5 : 0),
                 bottomRight: Radius.circular((index == 4) ? 5 : 0)
             ),
-            color: colorList[index],
+            color: colorList![index],
           ),
             alignment: Alignment.center,
             child: Icon(Icons.circle,size: 10,color:(index == colorIndex)  ? Colors.white : Colors.transparent,),
@@ -142,13 +169,13 @@ class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
   }
 
   String colorValue(int index){
-    RgbColor color = RgbColor(colorList[0].red,colorList[0].green,colorList[0].blue);
+    RgbColor color = RgbColor(colorList![0].red,colorList![0].green,colorList![0].blue);
 
     switch(index){
       case 0:
         return 'RGB(${color.red},${color.green},${color.blue})';
       case 1:
-        return colorList[0].value.toRadixString(16);
+        return colorList![0].value.toRadixString(16);
       case 2:
         var newColorValue = HsbColor.from(color);
         return 'HSB(${newColorValue.hue.floor()},${newColorValue.saturation.floor()},${newColorValue.brightness.floor()})';

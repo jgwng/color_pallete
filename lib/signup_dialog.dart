@@ -1,13 +1,16 @@
 import 'package:colorpallete/auth_text_field.dart';
+import 'package:colorpallete/ui/widget/standard_button.dart';
 import 'package:colorpallete/validator.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class LoginNSignUpDialog extends StatefulWidget{
+class SignUpDialog extends StatefulWidget{
   @override
-  _LoginNSignUpDialogState createState() => _LoginNSignUpDialogState();
+  _SignUpDialogState createState() => _SignUpDialogState();
 }
 
-class _LoginNSignUpDialogState extends State<LoginNSignUpDialog>{
+class _SignUpDialogState extends State<SignUpDialog>{
   TextEditingController? nickname;
   TextEditingController? email;
   TextEditingController? password;
@@ -15,6 +18,8 @@ class _LoginNSignUpDialogState extends State<LoginNSignUpDialog>{
   FocusNode? nameNode;
   FocusNode? emailNode;
   FocusNode? pwNode;
+
+  FocusNode? dialogNode;
 
   @override
   void initState() {
@@ -27,6 +32,7 @@ class _LoginNSignUpDialogState extends State<LoginNSignUpDialog>{
     nameNode = FocusNode();
     emailNode = FocusNode();
     pwNode = FocusNode();
+    dialogNode = FocusNode();
 
   }
 
@@ -36,7 +42,14 @@ class _LoginNSignUpDialogState extends State<LoginNSignUpDialog>{
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
+    return  RawKeyboardListener(
+        autofocus: true,
+        focusNode: dialogNode!,
+        onKey: (event){
+      if(event.isKeyPressed(LogicalKeyboardKey.escape)){
+        Navigator.pop(context);
+      }
+    },child : Dialog(
         shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20.0))
     ),
@@ -55,7 +68,7 @@ class _LoginNSignUpDialogState extends State<LoginNSignUpDialog>{
               title: Center(
                 child: Padding(
                   padding: EdgeInsets.only(right: 10),
-                  child: Text('팔레트 상세 정보 확인',style: TextStyle(fontFamily: 'SpoqaHanSansNeo'),),
+                  child: Text('회원가입',style: TextStyle(fontFamily: 'SpoqaHanSansNeo'),),
                 ),
               ),
               trailing: Opacity(
@@ -71,6 +84,7 @@ class _LoginNSignUpDialogState extends State<LoginNSignUpDialog>{
               color: Colors.grey[200],height: 1,thickness: 1,
             ),
           ),
+          SizedBox(height:10),
           AuthTFT(labelText: '닉네임', controller: nickname!,focusNode: nameNode,function: (String text) {},
             submitFunction: (String? text) => nameNode!.requestFocus(emailNode),validator: nameCheck,),
 
@@ -78,14 +92,23 @@ class _LoginNSignUpDialogState extends State<LoginNSignUpDialog>{
             submitFunction: (String? text) => emailNode!.requestFocus(pwNode),validator: emailCheck,),
 
           AuthTFT(labelText: '비밀번호', controller: password!,focusNode: pwNode,function: (String text) {},
-            submitFunction: (String? text) {},validator: pwCheck,)
+            submitFunction: (String? text) {},validator: pwCheck,),
 
+          SizedBox(height:30),
+          RichText(
+            text: TextSpan(text: '이미 회원가입을 하셨나요? ',style : TextStyle(fontFamily: "SpoqaHanSansNeo"), children:[
+              TextSpan(text: '로그인하기',style : TextStyle(fontFamily: "SpoqaHanSansNeo"), recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                }),
+            ]),
+          ),
+          SizedBox(height:30),
+          StandardButton(buttonTitle: '회원가입',onPressed: (){},hMargin:40,vMargin: 0,),
+          SizedBox(height:20)
         ],
       ),
-
-
-
-     ));
+     ))
+    );
   }
 
 }
