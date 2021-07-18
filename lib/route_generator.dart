@@ -1,4 +1,6 @@
+import 'package:colorpallete/home_page.dart';
 import 'package:colorpallete/main.dart';
+import 'package:colorpallete/ui/views/one_color_page/one_color_page.dart';
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -36,7 +38,7 @@ class RouteGenerator {
       builder: (context) {
        switch(parser){
          case 'home':
-           return MyHomePage();
+           return OneColorPage();
          case 'error':
            return Container(color: Colors.red,);
          case '1':

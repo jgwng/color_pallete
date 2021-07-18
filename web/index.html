@@ -22,7 +22,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="colorpallete">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
+  <link rel="icon" type="image/png" href="favicon.png"/>
   <title>PALETTE</title>
   <link rel="manifest" href="manifest.json">
 </head>
@@ -30,6 +30,25 @@
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-functions.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+  <script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyByq-e7OK8eg-P49h7y4EiMGBhbxvIxABA",
+    authDomain: "palette-1b514.firebaseapp.com",
+    projectId: "palette-1b514",
+    storageBucket: "palette-1b514.appspot.com",
+    messagingSenderId: "206384538926",
+    appId: "1:206384538926:web:e576d79d4ffbc2114e46bf"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  </script>
   <script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;
@@ -38,6 +57,7 @@
         return;
       }
       scriptLoaded = true;
+
       var scriptTag = document.createElement('script');
       scriptTag.src = 'main.dart.js';
       scriptTag.type = 'application/javascript';
@@ -51,6 +71,7 @@
         // Otherwise, the browser will load the script multiple times,
         // potentially different versions.
         var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
+
         navigator.serviceWorker.register(serviceWorkerUrl)
           .then((reg) => {
             function waitForActivation(serviceWorker) {

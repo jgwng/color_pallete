@@ -47,6 +47,8 @@ class _MyHomePageState extends State<MyHomePage>  {
     super.initState();
     focusNode = FocusNode();
     appContainer!.addEventListener('mouseout', (event) => mouseOut());
+    appContainer!.addEventListener('beforeunload', (event) => print('closed'));
+
     paletteList.add(colorList);
     fToast = FToast();
     fToast!.init(context);
