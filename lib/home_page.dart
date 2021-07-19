@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage>{
                              TextSpan(text: "다양한 색상을 비교해 보세요!\n")
                            ])),
                        GestureDetector(
-                         onTap: (){},
+                         onTap: () => Navigator.pushNamed(context, '/generate'),
                          behavior: HitTestBehavior.opaque,
                          child: Container(
                            width: 200,

@@ -22,7 +22,10 @@ class RouteGenerator {
 
     if(route == '/'){
       parser = 'home';
-    }else{
+    }else if(route == '/generate'){
+      parser ='palette';
+    }
+    else{
       String newRoute = route.substring(1);
       print(newRoute);
       var splitRoute = newRoute.split('-');
@@ -38,7 +41,7 @@ class RouteGenerator {
       builder: (context) {
        switch(parser){
          case 'home':
-           return OneColorPage();
+           return HomePage();
          case 'error':
            return Container(color: Colors.red,);
          case '1':

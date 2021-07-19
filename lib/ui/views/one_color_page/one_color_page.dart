@@ -37,7 +37,7 @@ class _OneColorPageState extends State<OneColorPage>{
 //    var list = newColorValue.toFactoredList();
 //   print(list);
 //    newColorValue = newColorValue.cooler((index+1)*10);
-    newColorValue = newColorValue.warmer((index+1)*10);
+    newColorValue = newColorValue.warmer((index+1)*10,relative: false);
     var newColor = RgbColor.from(newColorValue);
 
 
