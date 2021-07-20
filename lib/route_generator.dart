@@ -41,7 +41,7 @@ class RouteGenerator {
       builder: (context) {
        switch(parser){
          case 'home':
-           return HomePage();
+           return OneColorPage();
          case 'error':
            return Container(color: Colors.red,);
          case '1':
