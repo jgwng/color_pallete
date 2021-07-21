@@ -1,4 +1,4 @@
-import 'package:color_models/color_models.dart';
+
 import 'package:colorpallete/ui/views/one_color_page/color_code_info.dart';
 import 'package:colorpallete/ui/views/one_color_page/color_variation_info.dart';
 import 'package:flutter/gestures.dart';

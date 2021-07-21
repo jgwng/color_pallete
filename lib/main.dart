@@ -1,33 +1,55 @@
-import 'package:colorpallete/route_generator.dart';
+import 'package:colorpallete/business_models/navigator/back_dispatcher.dart';
+import 'package:colorpallete/business_models/navigator/palette_parser.dart';
+import 'package:colorpallete/business_models/navigator/palette_router.dart';
+import 'package:colorpallete/business_models/view_models/delegate_view_model.dart';
+import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/show_dialog.dart';
 import 'package:colorpallete/ui/widget/color_code_copy_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {
   setPathUrlStrategy();
-  runApp(MyApp());
+  setupServiceLocator();
+  runApp(
+      ProviderScope(
+          child:MyApp()
+      ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+@override
+  _MyAppState createState() => _MyAppState();
+
+}
+class _MyAppState extends State<MyApp>{
+  PaletteRouterDelegate? delegate;
+  final parser = PaletteParser();
+  PaletteBackDispatcher? webAppBackDispatcher;
+  final provider = serviceLocator.get<DelegateViewModel>();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PALETTE',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      initialRoute: '/',
-      onGenerateRoute: RouteGenerator.generateRoute,
+    return MaterialApp.router(
+        title: 'PALETTE',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        debugShowCheckedModeBanner: false,
+        backButtonDispatcher: webAppBackDispatcher,
+        routeInformationParser: parser,
+        routerDelegate: delegate!
+
     );
   }
-}
 
+}
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
