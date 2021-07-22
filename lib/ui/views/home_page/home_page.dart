@@ -1,4 +1,7 @@
 import 'package:colorpallete/app_themes.dart';
+import 'package:colorpallete/business_models/navigator/ui_pages.dart';
+import 'package:colorpallete/business_models/view_models/delegate_view_model.dart';
+import 'package:colorpallete/service/service_locator.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget{
@@ -7,6 +10,7 @@ class HomePage extends StatefulWidget{
 }
 
 class _HomePageState extends State<HomePage>{
+  final provider = serviceLocator.get<DelegateViewModel>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +37,7 @@ class _HomePageState extends State<HomePage>{
                              TextSpan(text: "다양한 색상을 비교해 보세요!\n")
                            ])),
                        GestureDetector(
-                         onTap: () => Navigator.pushNamed(context, '/generate'),
+                         onTap: () => provider.movePage(PalettePageConfig),
                          behavior: HitTestBehavior.opaque,
                          child: Container(
                            width: 200,

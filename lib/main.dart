@@ -35,6 +35,14 @@ class _MyAppState extends State<MyApp>{
   final provider = serviceLocator.get<DelegateViewModel>();
 
   @override
+  void initState() {
+    super.initState();
+    delegate = provider.baseDelegate;
+    provider.init();
+    webAppBackDispatcher = PaletteBackDispatcher(delegate!);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
         title: 'PALETTE',
@@ -45,7 +53,6 @@ class _MyAppState extends State<MyApp>{
         backButtonDispatcher: webAppBackDispatcher,
         routeInformationParser: parser,
         routerDelegate: delegate!
-
     );
   }
 

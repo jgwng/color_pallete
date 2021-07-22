@@ -10,10 +10,12 @@ class PaletteParser extends RouteInformationParser<PageConfiguration>{
     }
 
     final path = uri.pathSegments[0];
+    print('path : $path');
     switch(path){
       case MainPagePath:
         return MainPageConfig;
-
+      case PalettePagePath:
+        return PalettePageConfig;
       default:
         return MainPageConfig;
     }

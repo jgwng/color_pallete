@@ -5,7 +5,8 @@ const String ErrorPagePath = '/error';
 enum Pages{
  Main,
  Generate,
- Error
+ Error,
+  Home
 }
 
 class PageConfiguration{

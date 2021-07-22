@@ -1,4 +1,6 @@
 import 'package:colorpallete/business_models/navigator/ui_pages.dart';
+import 'package:colorpallete/main.dart';
+import 'package:colorpallete/ui/views/home_page/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +75,12 @@ class PaletteRouterDelegate extends RouterDelegate<PageConfiguration> with Chang
             pageConfig.uiPage;
     if (shouldAddPage) {
       switch (pageConfig.uiPage) {
-
+        case Pages.Main:
+          _addPageData(HomePage(), MainPageConfig);
+          break;
+        case Pages.Generate:
+          _addPageData(MyHomePage(), MainPageConfig);
+          break;
         default:
           break;
       }
