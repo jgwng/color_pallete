@@ -1,16 +1,13 @@
 import 'package:colorpallete/app_themes.dart';
-import 'package:colorpallete/business_models/navigator/ui_pages.dart';
-import 'package:colorpallete/business_models/view_models/delegate_view_model.dart';
-import 'package:colorpallete/service/service_locator.dart';
 import 'package:flutter/material.dart';
-
+import 'package:universal_html/html.dart' as html;
 class HomePage extends StatefulWidget{
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage>{
-  final provider = serviceLocator.get<DelegateViewModel>();
+//  final provider = serviceLocator.get<DelegateViewModel>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +34,7 @@ class _HomePageState extends State<HomePage>{
                              TextSpan(text: "다양한 색상을 비교해 보세요!\n")
                            ])),
                        GestureDetector(
-                         onTap: () => provider.movePage(PalettePageConfig),
+                         onTap: () => Navigator.pushReplacementNamed(context, '/main'),
                          behavior: HitTestBehavior.opaque,
                          child: Container(
                            width: 200,
@@ -60,14 +57,14 @@ class _HomePageState extends State<HomePage>{
            Text('본 사이트는 Coolors사이트를 클론한 사이트임을 알려드립니다',style:  TextStyle(fontFamily: 'SpoqaHanSansNeo',color : Colors.grey[400],fontSize: 16,),),
            SizedBox(height: 20,),
            GestureDetector(
-             onTap: (){},
+             onTap: () => html.window.open('https://coolors.co/', 'PlaceholderName'),
              child: Container(
                padding: EdgeInsets.only(bottom: 8),
                decoration: BoxDecoration(
                      border: Border(
                          bottom: BorderSide(color: Colors.blue))
                  ),
-               child: Text('Coolors 사이트 방문하기',style : TextStyle(fontWeight: FontWeight.w500,color: Colors.blue,fontSize: 20,fontFamily: 'SpoqaHanSansNeo')),
+               child: Text('Coolors 사이트 방문하기',style : TextStyle(fontWeight: FontWeight.w500,color: Colors.blue,fontSize: 16,fontFamily: 'SpoqaHanSansNeo')),
              ),
            )
          ],

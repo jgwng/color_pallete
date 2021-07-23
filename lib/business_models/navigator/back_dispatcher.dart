@@ -5,7 +5,9 @@ class PaletteBackDispatcher extends RootBackButtonDispatcher{
   final PaletteRouterDelegate _routerDelegate;
 
   PaletteBackDispatcher(this._routerDelegate)
-      : super();
+      : super(
+
+  );
 
 
   @override

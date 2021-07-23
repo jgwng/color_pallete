@@ -1,7 +1,10 @@
+import 'dart:html';
+
 import 'package:colorpallete/business_models/navigator/back_dispatcher.dart';
 import 'package:colorpallete/business_models/navigator/palette_parser.dart';
 import 'package:colorpallete/business_models/navigator/palette_router.dart';
 import 'package:colorpallete/business_models/view_models/delegate_view_model.dart';
+import 'package:colorpallete/route_generator.dart';
 import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/show_dialog.dart';
 import 'package:colorpallete/ui/widget/color_code_copy_toast.dart';
@@ -15,11 +18,8 @@ import 'package:url_strategy/url_strategy.dart';
 
 void main() {
   setPathUrlStrategy();
-  setupServiceLocator();
-  runApp(
-      ProviderScope(
-          child:MyApp()
-      ));
+//  setupServiceLocator();
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -29,30 +29,16 @@ class MyApp extends StatefulWidget {
 
 }
 class _MyAppState extends State<MyApp>{
-  PaletteRouterDelegate? delegate;
-  final parser = PaletteParser();
-  PaletteBackDispatcher? webAppBackDispatcher;
-  final provider = serviceLocator.get<DelegateViewModel>();
-
-  @override
-  void initState() {
-    super.initState();
-    delegate = provider.baseDelegate;
-    provider.init();
-    webAppBackDispatcher = PaletteBackDispatcher(delegate!);
-  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-        title: 'PALETTE',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        debugShowCheckedModeBanner: false,
-        backButtonDispatcher: webAppBackDispatcher,
-        routeInformationParser: parser,
-        routerDelegate: delegate!
+    return MaterialApp(
+      title: 'PALETTE',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 
@@ -65,16 +51,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage>  {
   List<Color> colorList = [Colors.red,Colors.blue,Colors.white,Colors.green,Colors.orange];
   int currentIndex = -1;
-  static final appContainer = html.window.document.getElementById('app-container');
+  var appContainer = html.window.document.getElementById('app-container');
+  var elClone;
   FocusNode? focusNode;
   List<dynamic> paletteList = [];
   FToast? fToast;
-
+//  final provider = serviceLocator.get<DelegateViewModel>();
 
   @override
   void initState() {
     super.initState();
     focusNode = FocusNode();
+    elClone= appContainer!.clone(true);
     appContainer!.addEventListener('mouseout', (event) => mouseOut());
     appContainer!.addEventListener('beforeunload', (event) => print('closed'));
 
@@ -86,164 +74,176 @@ class _MyHomePageState extends State<MyHomePage>  {
   @override
   void dispose() {
     super.dispose();
+    window.addEventListener('mouseout', (event) {
+    event.stopImmediatePropagation();
+    }, true);
+    window.addEventListener('beforeunload', (event) {
+      event.stopImmediatePropagation();
+    }, true);
   }
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-      autofocus: true,
-      focusNode: focusNode!,
-      onKey: (event){
-        if(event.isKeyPressed(LogicalKeyboardKey.space)){
-          setState(() {
-            colorList.shuffle();
-            setAddress();
-          });
-        }
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+        return Future(() => false);
       },
-      child: Scaffold(
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-              height: 60,
-              color: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 40),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text('PALETTE',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.blue,fontSize: 30,fontFamily: 'Staatliches'),),
-                      SizedBox(width:40),
-                      Text('스페이스 바를 눌러 팔레트에 변화를 확인하세요',style: TextStyle(fontSize: 12,color: Colors.grey[400],fontFamily: 'SpoqaHanSansNeo'))
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child : VerticalDivider(width: 1,thickness: 1,color: Colors.grey[200],)
-                      ),
-                      SizedBox(width:20),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          primary: Colors.grey, // foreground
-                        ),
-                        onPressed: () => showSignUpDialog(context),
-                        child: Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: Text('회원가입',style : TextStyle(fontSize: 15,fontFamily: 'SpoqaHanSansNeo')),
-                        ),
-                      ),
-                      SizedBox(width:10),
-                      Container(
-                          height: 40,
-                          width: 80,
-                          child:  TextButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6.0),
-                                  )
-                              ),
-                              elevation: MaterialStateProperty.all<double>(0.0),
-                            ),
-                            onPressed: () => showLoginDialog(context),
-                            child: Text('로그인',style: TextStyle(fontSize: 15,color: Colors.white,fontFamily: 'SpoqaHanSansNeo'),),
-                          )
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-            Container(
-              height: 60,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                      top: BorderSide(color: Colors.grey))
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding : EdgeInsets.only(top: 10,bottom: 10,right: 10),
-                    child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[400],),
-                  ),
-                  Tooltip(
-                      message: '이전 팔레트',
-                      preferBelow: false,
-                      textStyle: TextStyle(fontSize: 10,color: Colors.white),
-                      child : IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.arrow_left_square,size:30))),
-                  SizedBox(width: 10,),
-                  Tooltip(
-                      message: '다음 팔레트',
-                      preferBelow: false,
-                      textStyle: TextStyle(fontSize: 10,color: Colors.white),
-                      child : IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.arrow_right_square,size:30))),
-                  Padding(
-                    padding : EdgeInsets.only(top: 10,bottom: 10,left: 10),
-                    child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[400],),
-                  ),
-                  GestureDetector(
-                    onTap: ()=> showPaletteDetailDialog(context),
-                    child: Row(
+      child: RawKeyboardListener(
+        autofocus: true,
+        focusNode: focusNode!,
+        onKey: (event){
+          if(event.isKeyPressed(LogicalKeyboardKey.space)){
+            setState(() {
+              colorList.shuffle();
+              setAddress();
+            });
+          }
+        },
+        child: Scaffold(
+          body:  Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                height: 60,
+                color: Colors.white,
+                padding: EdgeInsets.symmetric(horizontal: 40),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(width: 10,),
-                        Tooltip(
-                            message: '상세정보 확인',
-                            preferBelow: false,
-                            textStyle: TextStyle(fontSize: 10,color: Colors.white),
-                            child : IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.eye,size:30,color: Colors.black,))),
-                        SizedBox(width: 10,),
-                        Padding(
-                          padding: EdgeInsets.only(top:5),
-                          child: Text('팔레트 상세 정보',style: TextStyle(fontSize: 12,color: Colors.black,fontFamily: 'SpoqaHanSansNeo')),
-                        ),
-                        SizedBox(width: 10,),
-                        Padding(
-                          padding : EdgeInsets.only(top: 10,bottom: 10,left: 10),
-                          child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[400],),
-                        )
+                        Text('PALETTE',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.blue,fontSize: 30,fontFamily: 'Staatliches'),),
+                        SizedBox(width:40),
+                        Text('스페이스 바를 눌러 팔레트에 변화를 확인하세요',style: TextStyle(fontSize: 12,color: Colors.grey[400],fontFamily: 'SpoqaHanSansNeo'))
                       ],
                     ),
-                  ),
-                  GestureDetector(
-                      onTap: () => showColorSaveDialog(context),
-                      behavior: HitTestBehavior.opaque,
-                      child:  Row(
+                    Row(
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child : VerticalDivider(width: 1,thickness: 1,color: Colors.grey[200],)
+                        ),
+                        SizedBox(width:20),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            primary: Colors.grey, // foreground
+                          ),
+                          onPressed: () => showSignUpDialog(context),
+                          child: Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Text('회원가입',style : TextStyle(fontSize: 15,fontFamily: 'SpoqaHanSansNeo')),
+                          ),
+                        ),
+                        SizedBox(width:10),
+                        Container(
+                            height: 40,
+                            width: 80,
+                            child:  TextButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6.0),
+                                    )
+                                ),
+                                elevation: MaterialStateProperty.all<double>(0.0),
+                              ),
+                              onPressed: () => showLoginDialog(context),
+                              child: Text('로그인',style: TextStyle(fontSize: 15,color: Colors.white,fontFamily: 'SpoqaHanSansNeo'),),
+                            )
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 60,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                        top: BorderSide(color: Colors.grey))
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding : EdgeInsets.only(top: 10,bottom: 10,right: 10),
+                      child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[400],),
+                    ),
+                    Tooltip(
+                        message: '이전 팔레트',
+                        preferBelow: false,
+                        textStyle: TextStyle(fontSize: 10,color: Colors.white),
+                        child : IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.arrow_left_square,size:30))),
+                    SizedBox(width: 10,),
+                    Tooltip(
+                        message: '다음 팔레트',
+                        preferBelow: false,
+                        textStyle: TextStyle(fontSize: 10,color: Colors.white),
+                        child : IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.arrow_right_square,size:30))),
+                    Padding(
+                      padding : EdgeInsets.only(top: 10,bottom: 10,left: 10),
+                      child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[400],),
+                    ),
+                    GestureDetector(
+                      onTap: ()=> showPaletteDetailDialog(context),
+                      child: Row(
                         children: [
                           SizedBox(width: 10,),
-                          IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.bookmark,size:30,color: Colors.black,)),
+                          Tooltip(
+                              message: '상세정보 확인',
+                              preferBelow: false,
+                              textStyle: TextStyle(fontSize: 10,color: Colors.white),
+                              child : IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.eye,size:30,color: Colors.black,))),
                           SizedBox(width: 10,),
                           Padding(
                             padding: EdgeInsets.only(top:5),
-                            child: Text('팔레트 저장',style: TextStyle(fontSize: 12,color: Colors.black,fontFamily: 'SpoqaHanSansNeo')),
+                            child: Text('팔레트 상세 정보',style: TextStyle(fontSize: 12,color: Colors.black,fontFamily: 'SpoqaHanSansNeo')),
                           ),
                           SizedBox(width: 10,),
+                          Padding(
+                            padding : EdgeInsets.only(top: 10,bottom: 10,left: 10),
+                            child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[400],),
+                          )
                         ],
-                      )
-                  )
-                ],
+                      ),
+                    ),
+                    GestureDetector(
+                        onTap: () => showColorSaveDialog(context),
+                        behavior: HitTestBehavior.opaque,
+                        child:  Row(
+                          children: [
+                            SizedBox(width: 10,),
+                            IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.bookmark,size:30,color: Colors.black,)),
+                            SizedBox(width: 10,),
+                            Padding(
+                              padding: EdgeInsets.only(top:5),
+                              child: Text('팔레트 저장',style: TextStyle(fontSize: 12,color: Colors.black,fontFamily: 'SpoqaHanSansNeo')),
+                            ),
+                            SizedBox(width: 10,),
+                          ],
+                        )
+                    )
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
 
-                children: <Widget>[
-                  colorItem(0),
-                  colorItem(1),
-                  colorItem(2),
-                  colorItem(3),
-                  colorItem(4),
-                ],
-              ),
-            )
-          ],
+                  children: <Widget>[
+                    colorItem(0),
+                    colorItem(1),
+                    colorItem(2),
+                    colorItem(3),
+                    colorItem(4),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -382,16 +382,20 @@ class _MyHomePageState extends State<MyHomePage>  {
   }
 
   void _onExit(int index){
-    setState(() {
-      currentIndex = -1;
-    });
+    if(mounted){
+      setState(() {
+        currentIndex = -1;
+      });
+    }
   }
 
   void _onHovering(int index){
-    if(index != currentIndex){
-      setState(() {
-        currentIndex = index;
-      });
+    if(mounted){
+      if(index != currentIndex){
+        setState(() {
+          currentIndex = index;
+        });
+      }
     }
   }
 
