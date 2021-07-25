@@ -1,4 +1,5 @@
 import 'package:colorpallete/ui/views/home_page/home_page.dart';
+import 'package:colorpallete/ui/views/one_color_page/one_color_page.dart';
 import 'package:colorpallete/ui/views/palette_page/palette_page.dart';
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
@@ -20,7 +21,7 @@ class RouteGenerator {
     String parser;
 
     if(route == '/'){
-      parser = 'home';
+      parser = '1';
     }else if (route == '/main'){
       parser = 'main';
     }
@@ -44,7 +45,7 @@ class RouteGenerator {
           case 'error':
             return Container(color: Colors.red,);
           case '1':
-            return Container(color: Colors.blue);
+            return OneColorPage();
           case 'main':
             return  PalettePage();
           default:

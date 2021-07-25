@@ -3,7 +3,8 @@ import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/ui/widget/auth_text_field.dart';
 import 'package:colorpallete/ui/widget/dialog/auth_dialog_bottom.dart';
 import 'package:colorpallete/ui/widget/dialog/auth_dialog_title.dart';
-import 'package:colorpallete/validator.dart';
+import 'package:colorpallete/utils/unFocus.dart';
+import '../../../utils/validator.dart';
 import 'package:flutter/material.dart';
 
 class SignUpDialog extends StatefulWidget{
@@ -38,26 +39,30 @@ class _SignUpDialogState extends State<SignUpDialog>{
 
   @override
   Widget build(BuildContext context) {
-    return   Dialog(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0))
-        ),
-        child: Container(
-          width: 400,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AuthDialogTitle(title: '회원가입'),
-              AuthTFT(labelText: '닉네임', controller: nickname!,focusNode: nameNode,function: (String text) => paletteAuth.setUserNickName(text),
-                submitFunction: (String? text) => nameNode!.requestFocus(emailNode),validator: nameCheck,),
-              AuthTFT(labelText: '이메일', controller: email!,focusNode: emailNode,function: (String text) => paletteAuth.setUserEmail(text),
-                submitFunction: (String? text) => emailNode!.requestFocus(pwNode),validator: emailCheck,),
-              AuthTFT(labelText: '비밀번호', controller: password!,focusNode: pwNode,function: (String text) {},
-                submitFunction: (String? text) {},validator: pwCheck,),
-              AuthDialogBottom(buttonTitle: '회원가입',onPressed: () => paletteAuth.signUpUser(password!.text),isLogin: false,),
-            ],
-          ),
-        ));
+    return GestureDetector(
+      onTap: () => unFocus(context),
+      behavior: HitTestBehavior.opaque,
+     child: Dialog(
+         shape: RoundedRectangleBorder(
+             borderRadius: BorderRadius.all(Radius.circular(20.0))
+         ),
+         child: Container(
+           width: 400,
+           child: Column(
+             mainAxisSize: MainAxisSize.min,
+             children: [
+               AuthDialogTitle(title: '회원가입'),
+               AuthTFT(labelText: '닉네임', controller: nickname!,focusNode: nameNode,function: (String text) => paletteAuth.setUserNickName(text),
+                 submitFunction: (String? text) => nameNode!.requestFocus(emailNode),validator: nameCheck,),
+               AuthTFT(labelText: '이메일', controller: email!,focusNode: emailNode,function: (String text) => paletteAuth.setUserEmail(text),
+                 submitFunction: (String? text) => emailNode!.requestFocus(pwNode),validator: emailCheck,),
+               AuthTFT(labelText: '비밀번호', controller: password!,focusNode: pwNode,function: (String text) {},
+                 submitFunction: (String? text) {},validator: pwCheck,),
+               AuthDialogBottom(buttonTitle: '회원가입',onPressed: () => paletteAuth.signUpUser(password!.text),isLogin: false,),
+             ],
+           ),
+         )),
+    );
   }
 
 }
