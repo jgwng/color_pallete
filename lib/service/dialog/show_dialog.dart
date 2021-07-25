@@ -1,7 +1,8 @@
-import 'package:colorpallete/color_save_dialog.dart';
-import 'package:colorpallete/login_dialog.dart';
-import 'package:colorpallete/signup_dialog.dart';
-import 'package:colorpallete/palette_detail_dialog.dart';
+
+import '../../ui/widget/dialog/palette_detail_dialog.dart';
+import 'package:colorpallete/ui/widget/dialog/color_save_dialog.dart';
+import 'package:colorpallete/ui/widget/dialog/login_dialog.dart';
+import 'package:colorpallete/ui/widget/dialog/signup_dialog.dart';
 import 'package:flutter/material.dart';
 
 void  showPaletteDetailDialog(BuildContext context){

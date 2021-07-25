@@ -11,7 +11,7 @@ class AppThemes{
 
   AppThemes._();
   static const TextTheme textTheme = TextTheme(
-    button: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, fontFamily: "AppleSDGothicNeo", color: Colors.white),
+    caption: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w500, fontFamily: "Staatliches", color: Colors.blue),
     headline1: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w500, fontFamily: "SpoqaHanSansNeo", color: Colors.black),
     headline2: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, fontFamily: "SpoqaHanSansNeo", color: Colors.black),
     subtitle1: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, fontFamily: "SpoqaHanSansNeo", color: Colors.black),

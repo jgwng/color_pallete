@@ -1,4 +1,4 @@
-import 'package:colorpallete/app_themes.dart';
+import 'package:colorpallete/const/app_themes.dart';
 import 'package:flutter/material.dart';
 
 class StandardButton extends StatelessWidget{

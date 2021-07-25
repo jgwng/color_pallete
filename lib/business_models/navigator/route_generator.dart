@@ -1,5 +1,5 @@
-import 'package:colorpallete/main.dart';
 import 'package:colorpallete/ui/views/home_page/home_page.dart';
+import 'package:colorpallete/ui/views/palette_page/palette_page.dart';
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -46,9 +46,9 @@ class RouteGenerator {
           case '1':
             return Container(color: Colors.blue);
           case 'main':
-            return  MyHomePage();
+            return  PalettePage();
           default:
-            return MyHomePage();
+            return PalettePage();
         }
       },
       settings: settings,

@@ -1,4 +1,4 @@
-import 'package:colorpallete/app_themes.dart';
+import 'package:colorpallete/const/app_themes.dart';
 import 'package:colorpallete/ui/widget/standard_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
