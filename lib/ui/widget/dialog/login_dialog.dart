@@ -1,4 +1,6 @@
 
+import 'package:colorpallete/business_models/view_models/auth_view_model.dart';
+import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/ui/widget/auth_text_field.dart';
 import 'package:colorpallete/ui/widget/dialog/auth_dialog_bottom.dart';
 import 'package:colorpallete/ui/widget/dialog/auth_dialog_title.dart';
@@ -19,6 +21,7 @@ class _LoginDialogState extends State<LoginDialog>{
   FocusNode? emailNode;
   FocusNode? pwNode;
 
+  final model = serviceLocator.get<AuthViewModel>();
 
   @override
   void initState(){
@@ -47,11 +50,11 @@ class _LoginDialogState extends State<LoginDialog>{
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 AuthDialogTitle(title : '환영합니다!'),
-                AuthTFT(labelText: '이메일', controller: email!,focusNode: emailNode,function: (String text) {},
+                AuthTFT(labelText: '이메일', controller: email!,focusNode: emailNode,function: (String text) => model.setLoginEmail(text),
                   submitFunction: (String? text) => emailNode!.requestFocus(pwNode),validator: emailCheck,),
-                AuthTFT(labelText: '비밀번호', controller: pw!,focusNode: pwNode,function: (String text) {},validator: pwCheck,
-                    submitFunction: (String? text) => pwNode!.requestFocus(emailNode)),
-                AuthDialogBottom(buttonTitle: '로그인',onPressed: (){},isLogin: true,)
+                AuthTFT(labelText: '비밀번호', controller: pw!,focusNode: pwNode,function: (String text) => model.setLoginPW(text),obscureText: true,
+                    validator: pwCheck, submitFunction: (String? text) => model.userLogin(context)),
+                AuthDialogBottom(buttonTitle: '로그인',onPressed: () => model.userLogin(context),isLogin: true,)
               ],
             ),
           )),

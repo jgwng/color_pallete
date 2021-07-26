@@ -21,7 +21,7 @@ class RouteGenerator {
     String parser;
 
     if(route == '/'){
-      parser = '1';
+      parser = 'home';
     }else if (route == '/main'){
       parser = 'main';
     }

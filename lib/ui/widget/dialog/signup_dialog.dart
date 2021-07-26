@@ -52,13 +52,17 @@ class _SignUpDialogState extends State<SignUpDialog>{
              mainAxisSize: MainAxisSize.min,
              children: [
                AuthDialogTitle(title: '회원가입'),
+
                AuthTFT(labelText: '닉네임', controller: nickname!,focusNode: nameNode,function: (String text) => paletteAuth.setUserNickName(text),
                  submitFunction: (String? text) => nameNode!.requestFocus(emailNode),validator: nameCheck,),
+
                AuthTFT(labelText: '이메일', controller: email!,focusNode: emailNode,function: (String text) => paletteAuth.setUserEmail(text),
                  submitFunction: (String? text) => emailNode!.requestFocus(pwNode),validator: emailCheck,),
-               AuthTFT(labelText: '비밀번호', controller: password!,focusNode: pwNode,function: (String text) {},
-                 submitFunction: (String? text) {},validator: pwCheck,),
-               AuthDialogBottom(buttonTitle: '회원가입',onPressed: () => paletteAuth.signUpUser(password!.text),isLogin: false,),
+
+               AuthTFT(labelText: '비밀번호', controller: password!,focusNode: pwNode,function: (String text) {},obscureText: true,
+                 submitFunction: (String? text) => paletteAuth.signUpUser(password!.text,context),validator: pwCheck,),
+
+               AuthDialogBottom(buttonTitle: '회원가입',onPressed: () => paletteAuth.signUpUser(password!.text,context),isLogin: false,),
              ],
            ),
          )),

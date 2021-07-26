@@ -32,7 +32,7 @@ class _PaletteLoginBarState extends State<PaletteLoginBar>{
               Text('스페이스 바를 눌러 팔레트에 변화를 확인하세요',style: AppThemes.textTheme.bodyText2!.copyWith(color: Colors.grey[400]))
             ],
           ),
-          (paletteAuth.baseUser.userUID == null) ? UnLoginStatus() : LoginStatus()
+          (paletteAuth.baseUser.userUID == null) ?  LoginStatus() :  UnLoginStatus()
         ],
       ),
     );

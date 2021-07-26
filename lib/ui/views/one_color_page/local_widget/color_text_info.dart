@@ -18,8 +18,8 @@ class _ColorTextInfoState extends State<ColorTextInfo>{
             padding: EdgeInsets.symmetric(vertical: 20),
             child: Text('배경색 추천',style: AppThemes.textTheme.subtitle1!.copyWith(fontWeight : FontWeight.w700),),
           ),
-          blackAndWhiteText(false),
-          blackAndWhiteText(true),
+          BlackNWhiteText(isBlack : false),
+          BlackNWhiteText(isBlack : true),
           SizedBox(height:30),
           Container(
             alignment: Alignment.center,
@@ -29,14 +29,21 @@ class _ColorTextInfoState extends State<ColorTextInfo>{
       ),
     );
   }
+}
 
-  Widget blackAndWhiteText(bool isBlack){
+class BlackNWhiteText extends StatelessWidget{
+  BlackNWhiteText({required this.isBlack});
+  final bool isBlack;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 20,),
-        Text('${isBlack ? '검은색' : '흰색'} 배경',style: AppThemes.textTheme.bodyText1),
-        SizedBox(height: 20,),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 20),
+          child: Text('${isBlack ? '검은색' : '흰색'} 배경',style: AppThemes.textTheme.bodyText1),
+        ),
         Container(
           width: 400,
           height:60,
@@ -52,8 +59,5 @@ class _ColorTextInfoState extends State<ColorTextInfo>{
       ],
     );
   }
-
-
-
 
 }
