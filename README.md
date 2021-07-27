@@ -10,7 +10,7 @@
 ## 프로젝트에 대하여
 ![Coloors클론_0717](https://user-images.githubusercontent.com/71699167/127180837-5e48bf8a-0d96-42e7-be7d-b880f4650f09.png)
 
-Pallete 프로젝트는 Coolors라는 외국사이트를 클론하여 개발을 진행하고 있는 프로젝트입니다.
+Pallete 프로젝트는 Coolors라는 외국사이트를 클론하여 개발을 진행하고 있는 프로젝트입니다.</br>
 UI디자이너들이 앱의 UI개발시에 메인 테마가 될 색상을 선정하는데 도움을 줄 수 있는 사이트입니다.
 
 
@@ -27,12 +27,13 @@ UI디자이너들이 앱의 UI개발시에 메인 테마가 될 색상을 선정
 * 모바일 /데스크탑에서 모두 사용 가능(반응형 웹으로 제작)
 
 
+</br></br>
 ## 개발 환경
 * Frontend : Flutter(Web)
 * BackEnd  :  Google Firebase(소셜 로그인)
 * 코드 관리 : Github
 
-
+</br></br>
 ## 개발 규모 및 일정
 * 개발 규모 : 개인 프로젝트(1명)
 * 개발 기간 : 2021년 07월 14일 ~ 현재
@@ -40,11 +41,13 @@ UI디자이너들이 앱의 UI개발시에 메인 테마가 될 색상을 선정
 * 개발 방식
   * 구현하고 싶은 기능 선정 -> 필요한 지식 / 기술 리서치 -> 코딩 방식에 대한 정리(Widget내의 구조) -> 해당 기능을 구현
 
-
+</br></br>
 ## 해당 프로젝트 페이지
  -> https://palette-1b514.firebaseapp.com/
  * 기능 개발이 끝난 후에 가비아 호스팅을 통해서 Custom 도메인을 사용할 예정
- 
+
+
+</br></br>
 ## 프로젝트를 진행하는 과정에서의 이슈,느낀점 간단 정리
  -> https://velog.io/@gunwng123/series/%EA%B0%9C%EC%9D%B8%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-Coolors-%ED%81%B4%EB%A1%A00716%EC%8B%9C%EC%9E%91
       
