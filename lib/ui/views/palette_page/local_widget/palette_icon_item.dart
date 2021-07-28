@@ -1,17 +1,21 @@
+import 'package:colorpallete/business_models/view_models/palette_view_model.dart';
+import 'package:colorpallete/service/dialog/show_dialog.dart';
+import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/ui/widget/color_code_copy_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class PaletteIconItem extends StatefulWidget{
-  PaletteIconItem({required this.index});
-  final int index;
+  PaletteIconItem({required this.index,required this.listIndex});
+  final int index,listIndex;
   @override
   _PaletteIconItemState createState() => _PaletteIconItemState();
 }
 
 class _PaletteIconItemState extends State<PaletteIconItem>{
   FToast? fToast;
-//  final provider = serviceLocator.get<DelegateViewModel>();
+  final provider = serviceLocator.get<PaletteViewModel>();
 
   @override
   void initState() {
@@ -32,15 +36,7 @@ class _PaletteIconItemState extends State<PaletteIconItem>{
         onEnter: (details) => print('icon enter'),
         onExit: (details) => print('icon exit'),
         child: IconButton(
-          onPressed: () {
-            fToast!.showToast(
-              child: CodeCopyToast(),
-              gravity: ToastGravity.BOTTOM,
-              toastDuration: Duration(seconds: 2),
-            );
-
-            // Custom Toast Position
-          },
+          onPressed: () => onPressed(widget.index),
           icon: listIcon(widget.index),
         ),
       ),
@@ -55,18 +51,15 @@ class _PaletteIconItemState extends State<PaletteIconItem>{
         icon = Icons.clear;
         break;
       case 1:
-        icon = Icons.grid_on_rounded;
-        break;
-      case 2:
         icon = Icons.star_border_outlined;
         break;
-      case 3:
+      case 2:
         icon = Icons.sync_alt_rounded;
         break;
-      case 4:
+      case 3:
         icon = Icons.content_copy_rounded;
         break;
-      case 5:
+      case 4:
         icon = Icons.lock_open_sharp;
         break;
     }
@@ -89,5 +82,30 @@ class _PaletteIconItemState extends State<PaletteIconItem>{
         return '';
     }
     return '';
+  }
+
+  void onPressed(int index){
+    switch(index){
+      case 0:
+        provider.deleteItem(widget.listIndex);
+        break;
+      case 1:
+        showColorSaveDialog(context);
+        break;
+      case 3:
+        print('${provider.basePalette[widget.listIndex].value.toRadixString(16)}');
+//        Clipboard.setData(ClipboardData(text: "${colorValue(index)}"));
+        fToast!.showToast(
+          child: CodeCopyToast(title: '색상값 복사완료!',),
+          gravity: ToastGravity.BOTTOM,
+          toastDuration: Duration(seconds: 2),
+        );
+        break;
+      default:
+        provider.deleteItem(widget.listIndex);
+        break;
+    }
+
+
   }
 }

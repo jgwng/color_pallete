@@ -1,6 +1,11 @@
+import 'package:colorpallete/const/app_themes.dart';
 import 'package:flutter/material.dart';
 
 class CodeCopyToast extends StatelessWidget{
+  CodeCopyToast({required this.title});
+  final String title;
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,11 +17,11 @@ class CodeCopyToast extends StatelessWidget{
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.check),
+          Icon(Icons.check,color: Colors.black,size: 30,),
           SizedBox(
             width: 12.0,
           ),
-          Text("This is a Custom Toast"),
+          Text(title,style: AppThemes.textTheme.bodyText1,),
         ],
       ),
     );

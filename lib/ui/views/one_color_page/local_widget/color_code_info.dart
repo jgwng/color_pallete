@@ -1,5 +1,4 @@
 
-import 'package:colorpallete/const/app_themes.dart';
 import 'package:colorpallete/ui/views/one_color_page/local_widget/color_preview_info.dart';
 import 'package:colorpallete/ui/views/one_color_page/local_widget/color_text_info.dart';
 import 'package:flutter/cupertino.dart';

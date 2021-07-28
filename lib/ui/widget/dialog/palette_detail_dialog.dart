@@ -10,9 +10,6 @@ class PaletteDetailDialog extends StatefulWidget{
 
 class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
 
-
-
-
   int? colorIndex;
   int? currentIndex;
   FocusNode? focusNode;

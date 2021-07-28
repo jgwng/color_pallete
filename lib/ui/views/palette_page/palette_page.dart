@@ -1,6 +1,8 @@
 
+import 'package:colorpallete/business_models/view_models/palette_view_model.dart';
 import 'package:colorpallete/const/app_themes.dart';
 import 'package:colorpallete/service/dialog/show_dialog.dart';
+import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/ui/views/palette_page/local_widget/login_bar.dart';
 import 'package:colorpallete/ui/views/palette_page/local_widget/palette_icon_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,12 +17,11 @@ class PalettePage extends StatefulWidget {
 }
 
 class _PalettePageState extends State<PalettePage>  {
-  List<Color> colorList = [Colors.red,Colors.blue,Colors.white,Colors.green,Colors.orange];
   int currentIndex = -1;
   FocusNode? focusNode;
   List<dynamic> paletteList = [];
   FToast? fToast;
-//  final provider = serviceLocator.get<DelegateViewModel>();
+  final provider = serviceLocator.get<PaletteViewModel>();
 
   @override
   void initState() {
@@ -30,7 +31,7 @@ class _PalettePageState extends State<PalettePage>  {
     html.window.addEventListener('mouseout', (event) => mouseOut());
     html.window.addEventListener('beforeunload', (event) => print('closed'));
 
-    paletteList.add(colorList);
+    paletteList.add(provider.basePalette);
     fToast = FToast();
     fToast!.init(context);
   }
@@ -58,8 +59,7 @@ class _PalettePageState extends State<PalettePage>  {
         onKey: (event){
           if(event.isKeyPressed(LogicalKeyboardKey.space)){
             setState(() {
-              colorList.shuffle();
-              setAddress();
+              provider.changePalette();
             });
           }
         },
@@ -142,13 +142,9 @@ class _PalettePageState extends State<PalettePage>  {
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    colorItem(0),
-                    colorItem(1),
-                    colorItem(2),
-                    colorItem(3),
-                    colorItem(4),
-                  ],
+                  children: List.generate(provider.basePalette.length, (index) {
+                    return colorItem(index);
+                  }),
                 ),
               )
             ],
@@ -168,7 +164,7 @@ class _PalettePageState extends State<PalettePage>  {
           cursor: SystemMouseCursors.click,
           child : Container(
             alignment: Alignment.center,
-            color: colorList[index],
+            color: provider.basePalette[index],
             child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
@@ -178,24 +174,24 @@ class _PalettePageState extends State<PalettePage>  {
                 opacity: (index == currentIndex) ? 1 : 0,
                 child: Column(
                   children: [
-                    PaletteIconItem(index : 0),
+                    PaletteIconItem(listIndex : index,index : 0),
                     SizedBox(height:20),
-                    PaletteIconItem(index :1),
+                    PaletteIconItem(listIndex : index,index :1),
                     SizedBox(height:20),
-                    PaletteIconItem(index :2),
+                    PaletteIconItem(listIndex : index,index :2),
                     SizedBox(height:20),
-                    PaletteIconItem(index :3),
+                    PaletteIconItem(listIndex : index,index :3),
                     SizedBox(height:20),
-                    PaletteIconItem(index :4),
+                    PaletteIconItem(listIndex : index,index :4),
                     SizedBox(height:20),
-                    PaletteIconItem(index :5),
+                    PaletteIconItem(listIndex : index,index :5),
                     SizedBox(height:100),
 
                   ],
                 ),
               ),
-              Text('${colorList[index].value.toRadixString(16).substring(2).toUpperCase()}',textAlign: TextAlign.center,style: TextStyle(
-                  color : (colorList[index].computeLuminance() <=0.5) ? Colors.white : Colors.black,fontFamily: 'SpoqaHanSansNeo',fontSize:30,
+              Text('${provider.basePalette[index].value.toRadixString(16).substring(2).toUpperCase()}',textAlign: TextAlign.center,style: TextStyle(
+                  color : (provider.basePalette[index].computeLuminance() <=0.5) ? Colors.white : Colors.black,fontFamily: 'SpoqaHanSansNeo',fontSize:30,
                   fontWeight: FontWeight.w700
               ),)
             ],
@@ -204,10 +200,6 @@ class _PalettePageState extends State<PalettePage>  {
       ),
     );
   }
-
-
-
-
 
   void mouseOut(){
     setState(() {
@@ -241,17 +233,7 @@ class _PalettePageState extends State<PalettePage>  {
     }
   }
 
-  void setAddress(){
-    String address = '';
-    for(int i = 0;i<colorList.length;i++){
-      String colorValue = colorList[i].value.toRadixString(16).substring(2).toUpperCase();
-      address += colorValue + ((i != colorList.length-1) ? '-' : '');
-    }
-    html.window.history.pushState(null, 'home', address);
-  }
-
   Color? colorConvert(String color) {
-
     color = color.replaceAll("#", "");
     if (color.length == 6) {
       return Color(int.parse("0xFF"+color));
