@@ -31,15 +31,7 @@ class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-        autofocus: true,
-        focusNode: focusNode!,
-        onKey: (event){
-          if(event.isKeyPressed(LogicalKeyboardKey.escape)){
-            Navigator.pop(context);
-          }
-        },
-    child:Dialog(
+    return Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0))
       ),
@@ -89,7 +81,7 @@ class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
               padding: EdgeInsets.all(20),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20)
+                    borderRadius: BorderRadius.circular(20)
                 ),
                 child: Row(
                   children: [
@@ -106,7 +98,7 @@ class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
         ),
 
       ),
-    ));
+    );
   }
   Widget colorDetailInfo(int index){
     return  MouseRegion(

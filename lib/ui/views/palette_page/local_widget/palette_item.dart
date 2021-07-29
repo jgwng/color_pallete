@@ -1,4 +1,3 @@
-import 'package:colorpallete/ui/views/palette_page/local_widget/palette_icon_item.dart';
 import 'package:flutter/material.dart';
 
 class PaletteItem extends StatefulWidget{

@@ -1,9 +1,11 @@
 import 'package:colorpallete/const/app_themes.dart';
 import 'package:colorpallete/ui/widget/standard_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ColorSaveDialog extends StatefulWidget{
+  ColorSaveDialog({required this.color});
+  final Color color;
+
   @override
   _ColorSaveDialogState createState() => _ColorSaveDialogState();
 }
@@ -32,15 +34,7 @@ class _ColorSaveDialogState extends State<ColorSaveDialog>{
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-        autofocus: true,
-        focusNode: dialogNode!,
-        onKey: (event){
-      if(event.isKeyPressed(LogicalKeyboardKey.escape)){
-        Navigator.pop(context);
-      }
-    },
-    child: Dialog(
+    return Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0))
       ),
@@ -87,11 +81,12 @@ class _ColorSaveDialogState extends State<ColorSaveDialog>{
                     width: 100,
                     height: 40,
                     decoration : BoxDecoration(
-                      color: Colors.pink,
+                      color: widget.color,
                       borderRadius : BorderRadius.circular(6.0)
                     ),
                     alignment: Alignment.center,
-                    child : Text('0x${Colors.pink.value.toRadixString(16).toUpperCase()}',style: TextStyle(color:Colors.white,fontFamily: 'SpoqaHanSansNeo',fontSize: 14),)
+                    child : Text('0x${widget.color.value.toRadixString(16).toUpperCase()}',style: TextStyle(
+                        color:(widget.color.computeLuminance() <=0.5) ? Colors.white : Colors.black,fontFamily: 'SpoqaHanSansNeo',fontSize: 14),)
                   ),
 
                 ],
@@ -107,7 +102,7 @@ class _ColorSaveDialogState extends State<ColorSaveDialog>{
           ],
         ),
       ),
-    ));
+    );
   }
 
   Widget colorTFT(String label){

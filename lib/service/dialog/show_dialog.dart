@@ -35,12 +35,22 @@ void showLoginDialog(BuildContext context){
   );
 }
 
-void showColorSaveDialog(BuildContext context){
+void showColorSaveDialog(BuildContext context,Color color){
   showDialog(
     context: context,
     barrierDismissible: true,
     builder: (BuildContext context) {
-      return ColorSaveDialog();
+      return ColorSaveDialog(color : color);
+    },
+  );
+}
+
+void showPaletteSaveDialog(BuildContext context){
+  showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext context) {
+      return ColorSaveDialog(color : Colors.red);
     },
   );
 }

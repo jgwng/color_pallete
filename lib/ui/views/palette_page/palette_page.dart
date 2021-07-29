@@ -30,7 +30,7 @@ class _PalettePageState extends State<PalettePage>  {
 
     html.window.addEventListener('mouseout', (event) => mouseOut());
     html.window.addEventListener('beforeunload', (event) => print('closed'));
-
+    provider.initPalette();
     paletteList.add(provider.basePalette);
     fToast = FToast();
     fToast!.init(context);
@@ -121,7 +121,7 @@ class _PalettePageState extends State<PalettePage>  {
                       ),
                     ),
                     GestureDetector(
-                        onTap: () => showColorSaveDialog(context),
+                        onTap: () => showPaletteSaveDialog(context),
                         behavior: HitTestBehavior.opaque,
                         child:  Row(
                           children: [

@@ -3,7 +3,6 @@ import 'package:colorpallete/service/dialog/show_dialog.dart';
 import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/ui/widget/color_code_copy_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class PaletteIconItem extends StatefulWidget{
@@ -60,7 +59,7 @@ class _PaletteIconItemState extends State<PaletteIconItem>{
         icon = Icons.content_copy_rounded;
         break;
       case 4:
-        icon = Icons.lock_open_sharp;
+        icon = (provider.lockIndex.contains(widget.listIndex)) ? Icons.lock_sharp : Icons.lock_open_sharp;
         break;
     }
     return Icon(icon,size: 30,color: Colors.black,);
@@ -90,7 +89,7 @@ class _PaletteIconItemState extends State<PaletteIconItem>{
         provider.deleteItem(widget.listIndex);
         break;
       case 1:
-        showColorSaveDialog(context);
+        showColorSaveDialog(context,provider.basePalette[widget.listIndex]);
         break;
       case 3:
         print('${provider.basePalette[widget.listIndex].value.toRadixString(16)}');
@@ -100,6 +99,11 @@ class _PaletteIconItemState extends State<PaletteIconItem>{
           gravity: ToastGravity.BOTTOM,
           toastDuration: Duration(seconds: 2),
         );
+        break;
+      case 4:
+        setState(() {
+          provider.lockItem(widget.listIndex);
+        });
         break;
       default:
         provider.deleteItem(widget.listIndex);
