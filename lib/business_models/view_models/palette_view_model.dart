@@ -9,10 +9,12 @@ import 'package:universal_html/html.dart' as html;
 final paletteInfo = ChangeNotifierProvider((ref) => serviceLocator<PaletteViewModel>());
 
 class PaletteViewModel extends ChangeNotifier{
-  static final List<Color> colorList  = [Colors.red,Colors.blue,Colors.white,Colors.green,Colors.orange,Colors.redAccent,Colors.deepOrange,Colors.brown,Colors.indigo,Colors.blueGrey];
+  static final List<Color> colorList  = [Colors.red,Colors.blue,Colors.green,Colors.orange,Colors.redAccent,Colors.deepOrange,Colors.brown,Colors.indigo,Colors.blueGrey];
   List<Color> basePalette = colorList;
   List<int> lockIndex = [];
   int length = 5;
+  int selectIndex = 0;
+
   void changePalette(){
     print('a');
     List<Color> palette = basePalette.toList();
@@ -55,6 +57,10 @@ class PaletteViewModel extends ChangeNotifier{
 
   }
 
+  void selectItem(int index){
+    selectIndex = index;
+    notifyListeners();
+  }
   void lockItem(int index){
     lockIndex.contains(index) ? lockIndex.remove(index) : lockIndex.add(index);
     print('lockIndex : $lockIndex');

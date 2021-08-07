@@ -17,6 +17,6 @@ class PaletteUser{
   PaletteUser.fromSnapshot(DocumentSnapshot snapshot)
       : email= snapshot['email'] as String?,
         userUID = snapshot['userUID'] as String?,
-        nickname= snapshot['email'] as String?;
+        nickname= snapshot['nickname'] as String?;
 
 }

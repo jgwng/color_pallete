@@ -1,4 +1,6 @@
+import 'package:colorpallete/business_models/view_models/auth_view_model.dart';
 import 'package:colorpallete/const/app_themes.dart';
+import 'package:colorpallete/service/service_locator.dart';
 import 'package:flutter/material.dart';
 
 class LoginStatus extends StatefulWidget{
@@ -9,6 +11,8 @@ class LoginStatus extends StatefulWidget{
 class _LoginStatusState extends State<LoginStatus>{
   OverlayEntry? _overlayEntry;
   OverlayState? _overlayState;
+
+  final model = serviceLocator.get<AuthViewModel>();
 
   @override
   void initState(){
@@ -26,6 +30,7 @@ class _LoginStatusState extends State<LoginStatus>{
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: ()  async{
         _overlayEntry = _createOverlayEntry();
         _overlayState!.insert(_overlayEntry!);
@@ -33,10 +38,21 @@ class _LoginStatusState extends State<LoginStatus>{
         _overlayEntry!.remove();
 
       },
-      child: CircleAvatar(
-        radius: 60,
-        backgroundColor: Colors.grey[300],
-      ),
+      child:Row(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: CircleAvatar(
+              radius: 40,
+              backgroundColor: Colors.grey[300],
+              child: Center(
+                child: Text('${model.baseUser.nickname!.substring(0,1).toUpperCase()}',style: AppThemes.textTheme.bodyText1,),
+              ),
+            ),
+          ),
+          Icon(Icons.arrow_drop_down,size: 30,)
+        ],
+      ) ,
     );
   }
 
@@ -68,6 +84,10 @@ class _LoginStatusState extends State<LoginStatus>{
                 ),
                 Material(
                   child: Text('로그 아웃',style: AppThemes.textTheme.bodyText1,),
+                ),
+                SizedBox(height: 20,),
+                Material(
+                  child: Text('회원 탈퇴',style: AppThemes.textTheme.bodyText1,),
                 ),
                 SizedBox(height: 20,),
               ],

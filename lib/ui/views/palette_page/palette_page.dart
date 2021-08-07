@@ -61,6 +61,14 @@ class _PalettePageState extends State<PalettePage>  {
             setState(() {
               provider.changePalette();
             });
+          }else if(event.isKeyPressed(LogicalKeyboardKey.arrowLeft)){
+            setState(() {
+              provider.changePalette();
+            });
+          }else if(event.isKeyPressed(LogicalKeyboardKey.arrowRight)){
+            setState(() {
+              provider.changePalette();
+            });
           }
         },
         child: Scaffold(
@@ -85,20 +93,23 @@ class _PalettePageState extends State<PalettePage>  {
                     Tooltip(
                         message: '이전 팔레트',
                         preferBelow: false,
-                        textStyle: TextStyle(fontSize: 10,color: Colors.white),
+                        textStyle: AppThemes.textTheme.bodyText1!.copyWith(fontSize: 10,color: Colors.white),
                         child : IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.arrow_left_square,size:30))),
                     SizedBox(width: 10,),
                     Tooltip(
                         message: '다음 팔레트',
                         preferBelow: false,
-                        textStyle: TextStyle(fontSize: 10,color: Colors.white),
+                        textStyle: AppThemes.textTheme.bodyText1!.copyWith(fontSize: 10,color: Colors.white),
                         child : IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.arrow_right_square,size:30))),
                     Padding(
                       padding : EdgeInsets.only(top: 10,bottom: 10,left: 10),
                       child: VerticalDivider(width: 1,thickness: 1,color: Colors.grey[400],),
                     ),
                     GestureDetector(
-                      onTap: ()=> showPaletteDetailDialog(context),
+                      onTap: (){
+                        showPaletteDetailDialog(context);
+                        provider.setAddress();
+                      },
                       child: Row(
                         children: [
                           SizedBox(width: 10,),
