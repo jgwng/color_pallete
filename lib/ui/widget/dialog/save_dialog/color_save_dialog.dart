@@ -1,10 +1,12 @@
-import 'package:colorpallete/const/app_themes.dart';
+import 'package:colorpallete/business_models/models/color.dart';
+import 'package:colorpallete/business_models/view_models/auth_view_model.dart';
+import 'package:colorpallete/service/firebase/database/fb_database_service.dart';
+import 'package:colorpallete/service/service_locator.dart';
+import 'package:colorpallete/ui/widget/dialog/local_widget/color_label_TFT.dart';
 import 'package:colorpallete/ui/widget/dialog/save_dialog/save_dialog_bottom.dart';
 import 'package:colorpallete/ui/widget/dialog/save_dialog/save_dialog_title.dart';
-import 'package:colorpallete/ui/widget/standard_button.dart';
 import 'package:flutter/material.dart';
 
-import '../local_widget/color_label_TFT.dart';
 
 class ColorSaveDialog extends StatefulWidget{
   ColorSaveDialog({required this.color});
@@ -15,6 +17,14 @@ class ColorSaveDialog extends StatefulWidget{
 }
 
 class _ColorSaveDialogState extends State<ColorSaveDialog>{
+
+
+  final firebaseDB = serviceLocator.get<FBDatabaseService>();
+  final user = serviceLocator.get<AuthViewModel>();
+
+
+
+
   TextEditingController? nameController;
   TextEditingController? memoController;
 
@@ -76,6 +86,19 @@ class _ColorSaveDialogState extends State<ColorSaveDialog>{
         ),
       ),
     );
+  }
+
+
+  void saveColorDB() async{
+    UserColor userColor = UserColor();
+    userColor.name = nameController!.text;
+    userColor.memo = memoController!.text;
+    userColor.code = '0x${(widget.color).value.toRadixString(16)}';
+
+    String uid = user.baseUser.userUID!;
+
+    await firebaseDB.saveColor(userColor);
+
   }
 
 }
