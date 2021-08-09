@@ -58,17 +58,17 @@ class _PaletteSaveDialogState extends State<PaletteSaveDialog>{
     );
 
   }
-  void saveColorDB() async{
+  void savePaletteDB() async{
 
     final palette = serviceLocator.get<PaletteViewModel>();
 
-    UserPalette userColor = UserPalette();
-    userColor.name = nameController!.text;
-    userColor.memo = memoController!.text;
-    userColor.colorCodeList = palette.basePalette;
+    UserPalette userPalette = UserPalette();
+    userPalette.name = nameController!.text;
+    userPalette.memo = memoController!.text;
+    userPalette.colorCodeList = palette.basePalette;
 
 
-    await firebaseDB.saveColor(userColor);
+    await firebaseDB.savePalette(userPalette);
 
   }
 

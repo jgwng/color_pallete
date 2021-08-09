@@ -1,7 +1,8 @@
 import 'package:colorpallete/business_models/view_models/palette_view_model.dart';
 import 'package:colorpallete/service/dialog/show_dialog.dart';
 import 'package:colorpallete/service/service_locator.dart';
-import 'package:colorpallete/ui/widget/color_code_copy_toast.dart';
+import 'package:colorpallete/ui/widget/toast/color_code_copy_toast.dart';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

@@ -6,6 +6,7 @@ import 'package:colorpallete/ui/widget/dialog/local_widget/color_label_TFT.dart'
 import 'package:colorpallete/ui/widget/dialog/save_dialog/save_dialog_bottom.dart';
 import 'package:colorpallete/ui/widget/dialog/save_dialog/save_dialog_title.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class ColorSaveDialog extends StatefulWidget{
@@ -21,7 +22,7 @@ class _ColorSaveDialogState extends State<ColorSaveDialog>{
 
   final firebaseDB = serviceLocator.get<FBDatabaseService>();
   final user = serviceLocator.get<AuthViewModel>();
-
+  FToast? fToast;
 
 
 
@@ -41,6 +42,9 @@ class _ColorSaveDialogState extends State<ColorSaveDialog>{
     nameNode = FocusNode();
     memoNode = FocusNode();
     dialogNode = FocusNode();
+
+    fToast = FToast();
+    fToast!.init(context);
   }
 
 
@@ -94,8 +98,6 @@ class _ColorSaveDialogState extends State<ColorSaveDialog>{
     userColor.name = nameController!.text;
     userColor.memo = memoController!.text;
     userColor.code = '0x${(widget.color).value.toRadixString(16)}';
-
-    String uid = user.baseUser.userUID!;
 
     await firebaseDB.saveColor(userColor);
 
