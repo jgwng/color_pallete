@@ -63,11 +63,11 @@ class _PalettePageState extends State<PalettePage>  {
             });
           }else if(event.isKeyPressed(LogicalKeyboardKey.arrowLeft)){
             setState(() {
-              provider.changePalette();
+              provider.setPreviousPalette();
             });
           }else if(event.isKeyPressed(LogicalKeyboardKey.arrowRight)){
             setState(() {
-              provider.changePalette();
+              provider.setNextPalette();
             });
           }
         },
@@ -166,6 +166,7 @@ class _PalettePageState extends State<PalettePage>  {
   }
 
   Widget colorItem(int index){
+
     return   Expanded(
       flex: 1,
       child: MouseRegion(

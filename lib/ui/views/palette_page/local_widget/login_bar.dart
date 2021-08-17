@@ -18,17 +18,26 @@ class _PaletteLoginBarState extends State<PaletteLoginBar>{
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 70,
       color: Colors.white,
-      padding: EdgeInsets.symmetric(horizontal: 40),
+      padding: EdgeInsets.only(left: 30,right: 40),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text('PALETTE',style: AppThemes.textTheme.caption,),
-              SizedBox(width:40),
+              TextButton(
+                style: TextButton.styleFrom(
+                  primary: Colors.white, // foreground
+                ),
+                onPressed: () {},
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
+                  child:Text('PALETTE',style: AppThemes.textTheme.caption,),
+                ),
+              ),
+              SizedBox(width:20),
               Text('스페이스 바를 눌러 팔레트에 변화를 확인하세요',style: AppThemes.textTheme.bodyText2!.copyWith(color: Colors.grey[400]))
             ],
           ),

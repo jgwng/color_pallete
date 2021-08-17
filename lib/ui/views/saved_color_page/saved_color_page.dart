@@ -8,6 +8,9 @@ class SavedColorPage extends StatefulWidget{
 }
 
 class _SavedColorPageState extends State<SavedColorPage>{
+
+  int index = 1;
+  bool isColor = true;
   @override
   Widget build(BuildContext context) {
    return Scaffold(
@@ -21,14 +24,18 @@ class _SavedColorPageState extends State<SavedColorPage>{
              children: [
                SizedBox(width: 20,),
                GestureDetector(
-                   onTap: (){},
+                   onTap: (){
+                     setState(() {
+                       isColor = true;
+                     });
+                   },
                    child : Container(
                      width: 80,
                      height: 40,
                      padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
                      decoration: BoxDecoration(
                          border: Border(
-                             bottom: BorderSide(color: Colors.blue,width: 2))
+                             bottom: BorderSide(color: isColor ? Colors.blue : Colors.transparent,width: 2))
                      ),
                      alignment: Alignment.center,
                      child: Text('색상별',style: AppThemes.textTheme.bodyText1,),
@@ -36,14 +43,18 @@ class _SavedColorPageState extends State<SavedColorPage>{
                ),
                SizedBox(width: 20,),
                GestureDetector(
-                   onTap: (){},
+                   onTap: (){
+                     setState(() {
+                       isColor = false;
+                     });
+                   },
                    child : Container(
                      width: 80,
                      height: 40,
                      padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
                      decoration: BoxDecoration(
                          border: Border(
-                             bottom: BorderSide(color: Colors.blue,width: 2))
+                             bottom: BorderSide(color: !isColor ? Colors.blue : Colors.transparent,width: 2))
                      ),
                      alignment: Alignment.center,
                      child: Text('팔레트별',style: AppThemes.textTheme.bodyText1,),
@@ -79,11 +90,17 @@ class _SavedColorPageState extends State<SavedColorPage>{
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Icon(Icons.arrow_back_ios,size: 25,),
+              IconButton(
+                icon: Icon(Icons.arrow_back_ios,size: 25,),
+                onPressed: onPressedForBefore,
+              ),
               SizedBox(width : 20),
-              Text('1',style : AppThemes.textTheme.headline1),
+              Text('$index',style : AppThemes.textTheme.headline1),
               SizedBox(width : 20),
-              Icon(Icons.arrow_forward_ios,size: 25,),
+              IconButton(
+                icon: Icon(Icons.arrow_forward_ios,size: 25,),
+                onPressed: onPressedForNext,
+              ),
             ],
           ),
         )
@@ -102,7 +119,18 @@ class _SavedColorPageState extends State<SavedColorPage>{
     
   }
   
-  
+  void onPressedForNext(){
+    setState(() {
+      index += 1;
+    });
+  }
+
+  void onPressedForBefore(){
+    setState(() {
+      if(index != 1)
+      index -= 1;
+    });
+  }
   
   
 }

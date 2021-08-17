@@ -1,5 +1,6 @@
 import 'dart:math';
-
+import 'package:colorpallete/ui/widget/toast/color_code_copy_toast.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:colorpallete/service/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +12,11 @@ final paletteInfo = ChangeNotifierProvider((ref) => serviceLocator<PaletteViewMo
 class PaletteViewModel extends ChangeNotifier{
   static final List<Color> colorList  = [Colors.red,Colors.blue,Colors.green,Colors.orange,Colors.redAccent,Colors.deepOrange,Colors.brown,Colors.indigo,Colors.blueGrey];
   List<Color> basePalette = colorList;
+  List<dynamic> basePaletteList = [];
   List<int> lockIndex = [];
   int length = 5;
   int selectIndex = 0;
+  int currentIndex = 0;
 
   void changePalette(){
     print('a');
@@ -34,8 +37,13 @@ class PaletteViewModel extends ChangeNotifier{
     }
     print('c');
     basePalette = newPalette;
-    setAddress();
+    print('palette : $palette');
+    print('basePalette : $basePalette');
+    basePaletteList.add(basePalette);
+    currentIndex +=1;
     notifyListeners();
+    setAddress();
+
   }
 
   void setAddress(){
@@ -53,8 +61,22 @@ class PaletteViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void replaceItem(){
+  void setPreviousPalette(){
+    if(currentIndex != 0){
+      currentIndex -= 1;
+      basePalette = basePaletteList[currentIndex];
+      setAddress();
+      notifyListeners();
+    }
+  }
 
+  void setNextPalette(){
+    if(currentIndex != basePaletteList.length-1){
+      currentIndex += 1;
+      basePalette = basePaletteList[currentIndex];
+      setAddress();
+      notifyListeners();
+    }
   }
 
   void selectItem(int index){
@@ -77,6 +99,7 @@ class PaletteViewModel extends ChangeNotifier{
       colorCopyList.remove(element);
     }
     basePalette = palette;
+    basePaletteList.add(basePalette);
     setAddress();
     notifyListeners();
   }

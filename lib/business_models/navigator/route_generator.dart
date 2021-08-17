@@ -22,7 +22,7 @@ class RouteGenerator {
     String parser;
 
     if(route == '/'){
-      parser = 'home';
+      parser = 'main';
     }else if (route == '/main'){
       parser = 'main';
     }
@@ -50,7 +50,7 @@ class RouteGenerator {
           case 'main':
             return  PalettePage();
           default:
-            return PalettePage();
+            return HomePage();
         }
       },
       settings: settings,
