@@ -117,7 +117,7 @@ class _PalettePageState extends State<PalettePage>  {
                               message: '상세정보 확인',
                               preferBelow: false,
                               textStyle: AppThemes.textTheme.bodyText1!.copyWith(fontSize: 10,color: Colors.white),
-                              child : IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.eye,size:30,color: Colors.black,))),
+                              child : Icon(CupertinoIcons.eye,size:30,color: Colors.black)),
                           SizedBox(width: 10,),
                           Padding(
                             padding: EdgeInsets.only(top:5),

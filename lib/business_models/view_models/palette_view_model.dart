@@ -1,6 +1,4 @@
 import 'dart:math';
-import 'package:colorpallete/ui/widget/toast/color_code_copy_toast.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:colorpallete/service/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

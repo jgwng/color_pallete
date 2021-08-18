@@ -1,5 +1,6 @@
 import 'package:colorpallete/business_models/view_models/auth_view_model.dart';
 import 'package:colorpallete/const/app_themes.dart';
+import 'package:colorpallete/service/dialog/show_dialog.dart';
 import 'package:colorpallete/service/service_locator.dart';
 import 'package:flutter/material.dart';
 
@@ -83,11 +84,17 @@ class _LoginStatusState extends State<LoginStatus>{
                   ),
                 ),
                 Material(
-                  child: Text('로그 아웃',style: AppThemes.textTheme.bodyText1,),
+                  child: Text('로그 아웃',style: AppThemes.textTheme.bodyText1),
                 ),
                 SizedBox(height: 20,),
                 Material(
-                  child: Text('회원 탈퇴',style: AppThemes.textTheme.bodyText1,),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Colors.black, // foreground
+                    ),
+                    onPressed: () => showWithdrawalDialog(context),
+                    child: Text('회원 탈퇴',style: AppThemes.textTheme.bodyText1),
+                  ),
                 ),
                 SizedBox(height: 20,),
               ],

@@ -36,7 +36,8 @@ class UnLoginStatus extends StatelessWidget{
                 ),
                 elevation: MaterialStateProperty.all<double>(0.0),
               ),
-              onPressed: () => showLoginDialog(context),
+              onPressed: () => showWithdrawalDialog(context),
+              //() => showLoginDialog(context)
               child: Text('로그인',style: AppThemes.textTheme.bodyText1!.copyWith(color: Colors.white),),
             )
         )
