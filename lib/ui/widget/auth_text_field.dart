@@ -2,7 +2,7 @@ import 'package:colorpallete/const/app_themes.dart';
 import 'package:flutter/material.dart';
 class AuthTFT extends StatefulWidget {
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String labelText;
   final FormFieldValidator<String>? validator;
   final TextInputType? keyboardType;
@@ -12,7 +12,7 @@ class AuthTFT extends StatefulWidget {
   final Function(String)? function;
   final Function(String)? submitFunction;
 
-  const AuthTFT({required this.labelText, this.validator,required this.controller,this.focusNode,this.submitFunction,
+  const AuthTFT({required this.labelText, this.validator,this.controller,this.focusNode,this.submitFunction,
     this.function, this.suffixIcon, this.obscureText = false, this.keyboardType});
 
   @override
@@ -40,7 +40,7 @@ class _AuthTFTState extends State<AuthTFT>{
       child: TextFormField(
         obscureText: (widget.labelText == '비밀번호') ? isObscureText! : widget.obscureText,
         keyboardType: widget.keyboardType ?? TextInputType.text,
-        controller: widget.controller,
+        controller: widget.controller ?? TextEditingController(),
         focusNode: widget.focusNode,
         cursorColor: Colors.black,
         validator: widget.validator,

@@ -48,7 +48,7 @@ class RouteGenerator {
           case '1':
             return OneColorPage();
           case 'main':
-            return  PalettePage();
+            return  SavedColorPage();
           default:
             return HomePage();
         }
