@@ -19,7 +19,7 @@ class HomePageText extends StatelessWidget{
                 TextSpan(text: "다양한 색상을 비교해 보세요!\n")
               ])),
           GestureDetector(
-            onTap: () => Navigator.pushReplacementNamed(context, '/main'),
+            onTap: () => Navigator.pushReplacementNamed(context, '/palette'),
             behavior: HitTestBehavior.opaque,
             child: Container(
               width: 300,

@@ -4,8 +4,8 @@ import 'package:colorpallete/service/firebase/database/fb_database_service.dart'
 import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/ui/widget/dialog/local_widget/color_label_TFT.dart';
 import 'package:colorpallete/ui/widget/dialog/palette_detail_dialog/local_widget/palette_preview_total.dart';
-import 'package:colorpallete/ui/widget/dialog/save_dialog/save_dialog_bottom.dart';
-import 'package:colorpallete/ui/widget/dialog/save_dialog/save_dialog_title.dart';
+import 'package:colorpallete/ui/widget/dialog/info_save_dialog/save_dialog_bottom.dart';
+import 'package:colorpallete/ui/widget/dialog/info_save_dialog/save_dialog_title.dart';
 import 'package:flutter/material.dart';
 
 class PaletteSaveDialog extends StatefulWidget{

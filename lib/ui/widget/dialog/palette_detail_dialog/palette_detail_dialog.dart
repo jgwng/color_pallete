@@ -1,5 +1,6 @@
 import 'package:color_models/color_models.dart';
 import 'package:colorpallete/business_models/view_models/palette_view_model.dart';
+import 'package:colorpallete/const/app_text.dart';
 import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/ui/widget/dialog/palette_detail_dialog/local_widget/palette_color_list.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,7 +28,7 @@ class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
     currentIndex = -1;
     var model = serviceLocator.get<PaletteViewModel>();
     colorList = model.basePalette;
-    colorKindList = ['RGB','HEX','HSB','HSL','CMYK','LAB','XYZ','HSP'];
+    colorKindList = AppText.colorInfoList();
     focusNode = FocusNode();
   }
 

@@ -21,27 +21,30 @@ class AuthTFT extends StatefulWidget {
 
 class _AuthTFTState extends State<AuthTFT>{
   bool? isObscureText;
-
+  bool? isPw;
+  List<String> obscureLabel = ['비밀번호',''];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    print(widget.labelText);
+    print(widget.labelText == '');
     isObscureText = widget.obscureText;
-
+    isPw = obscureLabel.contains(widget.labelText);
   }
 
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300,
+      width: double.infinity,
       height: 60,
-      margin: EdgeInsets.only(top:20),
+      margin: EdgeInsets.only(top:20,left:20,right:20),
       child: TextFormField(
-        obscureText: (widget.labelText == '비밀번호') ? isObscureText! : widget.obscureText,
+        obscureText: isPw! ? isObscureText! : widget.obscureText,
         keyboardType: widget.keyboardType ?? TextInputType.text,
         controller: widget.controller ?? TextEditingController(),
-        focusNode: widget.focusNode,
+        focusNode: widget.focusNode ?? FocusNode(),
         cursorColor: Colors.black,
         validator: widget.validator,
         style: AppThemes.textTheme.bodyText1!,
@@ -50,7 +53,7 @@ class _AuthTFTState extends State<AuthTFT>{
         onFieldSubmitted: widget.submitFunction,
         decoration: InputDecoration(
             labelText: widget.labelText,
-            suffixIcon: (widget.labelText == '비밀번호') ? IconButton(
+            suffixIcon: isPw! ? IconButton(
               onPressed: (){
                 setState(() {
                   isObscureText = !isObscureText!;

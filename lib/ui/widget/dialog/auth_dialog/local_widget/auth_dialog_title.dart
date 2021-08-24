@@ -12,7 +12,7 @@ class AuthDialogTitle extends StatelessWidget{
         Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.all(0),
-          margin: EdgeInsets.only(left: 10,top: 10),
+          margin: EdgeInsets.only(top: 10,left: 10,right: 10),
           child: IconButton(
             onPressed: () => Navigator.pop(context),
             splashColor: Colors.transparent,

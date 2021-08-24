@@ -1,5 +1,7 @@
 import 'package:colorpallete/const/app_themes.dart';
 import 'package:colorpallete/ui/views/palette_page/local_widget/login_bar.dart';
+import 'package:colorpallete/ui/views/saved_color_page/local_widget/saved_palette_item.dart';
+import 'package:colorpallete/ui/views/saved_color_page/local_widget/select_tab_item.dart';
 import 'package:flutter/material.dart';
 
 class SavedColorPage extends StatefulWidget{
@@ -22,44 +24,8 @@ class _SavedColorPageState extends State<SavedColorPage>{
            padding: EdgeInsets.symmetric(horizontal: 30),
            child:  Row(
              children: [
-               SizedBox(width: 20,),
-               GestureDetector(
-                   onTap: (){
-                     setState(() {
-                       isColor = true;
-                     });
-                   },
-                   child : Container(
-                     width: 80,
-                     height: 40,
-                     padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
-                     decoration: BoxDecoration(
-                         border: Border(
-                             bottom: BorderSide(color: isColor ? Colors.blue : Colors.transparent,width: 2))
-                     ),
-                     alignment: Alignment.center,
-                     child: Text('색상별',style: AppThemes.textTheme.bodyText1,),
-                   )
-               ),
-               SizedBox(width: 20,),
-               GestureDetector(
-                   onTap: (){
-                     setState(() {
-                       isColor = false;
-                     });
-                   },
-                   child : Container(
-                     width: 80,
-                     height: 40,
-                     padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
-                     decoration: BoxDecoration(
-                         border: Border(
-                             bottom: BorderSide(color: !isColor ? Colors.blue : Colors.transparent,width: 2))
-                     ),
-                     alignment: Alignment.center,
-                     child: Text('팔레트별',style: AppThemes.textTheme.bodyText1,),
-                   )
-               ),
+               SelectTabItem(title: '색상별',onPressed: () => onPressed(true),isColor: isColor,),
+               SelectTabItem(title: '팔레트별',onPressed: () => onPressed(false),isColor: !isColor,),
                Spacer(),
                Text('aaaa님',style: AppThemes.textTheme.headline2,)
              ],
@@ -68,7 +34,7 @@ class _SavedColorPageState extends State<SavedColorPage>{
          SizedBox(height: 50),
          Flexible(
            child: Padding(
-             padding: EdgeInsets.symmetric(horizontal: 30),
+             padding: EdgeInsets.only(left: 30,right: 30,bottom: 20),
             child: GridView.builder(
                 itemCount: 8,
                 scrollDirection: Axis.vertical,
@@ -78,14 +44,14 @@ class _SavedColorPageState extends State<SavedColorPage>{
                     mainAxisSpacing: 30,crossAxisSpacing: 30,
                     crossAxisCount: 4),
                 itemBuilder: (BuildContext context, int index) {
-                  return gridViewItem();
+                  return SavedPaletteItem(palette: [Colors.red],isColor:isColor ,);
                 }),
            ),
          ),
         Container(
-          height: 80,
+          height: 60,
           width: double.infinity,
-          padding: EdgeInsets.only(right: 40),
+          padding: EdgeInsets.only(right: 40,bottom: 20),
           alignment: Alignment.centerRight,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -94,9 +60,10 @@ class _SavedColorPageState extends State<SavedColorPage>{
                 icon: Icon(Icons.arrow_back_ios,size: 25,),
                 onPressed: onPressedForBefore,
               ),
-              SizedBox(width : 20),
-              Text('$index',style : AppThemes.textTheme.headline1),
-              SizedBox(width : 20),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Text('$index',style : AppThemes.textTheme.headline1),
+              ),
               IconButton(
                 icon: Icon(Icons.arrow_forward_ios,size: 25,),
                 onPressed: onPressedForNext,
@@ -109,16 +76,6 @@ class _SavedColorPageState extends State<SavedColorPage>{
    );
   }
   
-  Widget gridViewItem(){
-    return Container(
-      width: 100,height: 60,
-      decoration: BoxDecoration(
-        color: Colors.red,
-        borderRadius: BorderRadius.circular(6.0)
-      ),);
-    
-  }
-  
   void onPressedForNext(){
     setState(() {
       index += 1;
@@ -129,6 +86,12 @@ class _SavedColorPageState extends State<SavedColorPage>{
     setState(() {
       if(index != 1)
       index -= 1;
+    });
+  }
+
+  void onPressed(bool value){
+    setState(() {
+      isColor = value;
     });
   }
   

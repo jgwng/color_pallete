@@ -3,8 +3,8 @@ import 'package:colorpallete/business_models/view_models/auth_view_model.dart';
 import 'package:colorpallete/service/firebase/database/fb_database_service.dart';
 import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/ui/widget/dialog/local_widget/color_label_TFT.dart';
-import 'package:colorpallete/ui/widget/dialog/save_dialog/save_dialog_bottom.dart';
-import 'package:colorpallete/ui/widget/dialog/save_dialog/save_dialog_title.dart';
+import 'package:colorpallete/ui/widget/dialog/info_save_dialog/save_dialog_bottom.dart';
+import 'package:colorpallete/ui/widget/dialog/info_save_dialog/save_dialog_title.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

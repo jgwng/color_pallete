@@ -2,8 +2,8 @@
 import 'package:colorpallete/business_models/view_models/auth_view_model.dart';
 import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/ui/widget/auth_text_field.dart';
-import 'package:colorpallete/ui/widget/dialog/auth_dialog/auth_dialog_bottom.dart';
-import 'package:colorpallete/ui/widget/dialog/auth_dialog/auth_dialog_title.dart';
+import 'package:colorpallete/ui/widget/dialog/auth_dialog/local_widget/auth_dialog_bottom.dart';
+import 'package:colorpallete/ui/widget/dialog/auth_dialog/local_widget/auth_dialog_title.dart';
 
 import 'package:colorpallete/utils/unFocus.dart';
 import 'package:colorpallete/utils/validator.dart';

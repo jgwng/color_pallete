@@ -1,7 +1,11 @@
 import 'package:colorpallete/const/app_themes.dart';
-import 'package:colorpallete/ui/widget/dialog/auth_dialog/auth_dialog_title.dart';
+import 'package:colorpallete/ui/widget/auth_text_field.dart';
+import 'package:colorpallete/ui/widget/dialog/auth_dialog/local_widget/auth_dialog_title.dart';
+import 'package:colorpallete/ui/widget/dialog/auth_dialog/withdrawal_dialog/local_widget/withdrawal_dialog_text.dart';
+
 import 'package:colorpallete/ui/widget/standard_button.dart';
 import 'package:colorpallete/utils/unFocus.dart';
+import 'package:colorpallete/utils/validator.dart';
 import 'package:flutter/material.dart';
 
 class WithdrawalDialog extends StatefulWidget{
@@ -35,28 +39,17 @@ class _WithdrawalDialogState extends State<WithdrawalDialog>{
 
   Widget dialogContent(){
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10),
-          Text('탈퇴시 주의사항',style: AppThemes.textTheme.headline1!.copyWith(fontWeight: FontWeight.w700)),
-          SizedBox(height: 30),
-          Text('회원 탈퇴시\n회원님의 모든 정보가 삭제 됩니다.\n한 번 삭제된 정보는 복구 불가능합니다.',style: AppThemes.textTheme.bodyText1,),
+          WithdrawalDialogText(),
+          AuthTFT(labelText: '', controller: TextEditingController(),focusNode: FocusNode(),function: (String text) {},obscureText: true,
+            submitFunction: (String? text) => {},validator: pwCheck,),
+          StandardButton(buttonTitle: '회원 탈퇴',onPressed: (){},hMargin: 20,vMargin: 20),
           Padding(
-            padding: EdgeInsets.only(top: 20,bottom: 10),
-            child: Text('이메일 정보 확인',style: AppThemes.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.w700)),
-          ),
-          Text('aaaa@aaaa.com',style: AppThemes.textTheme.bodyText1,),
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-            child: Text('비밀번호 확인',style: AppThemes.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.w700)),
-          ),
-          TextField(),
-          StandardButton(buttonTitle: '회원 탈퇴',onPressed: (){},hMargin: 0,vMargin: 20,),
-          Padding(
-            padding: EdgeInsets.only(bottom: 20),
-            child: Divider(height: 1,thickness: 1,color: Colors.black,),
+            padding: EdgeInsets.only(bottom: 20,left: 20,right: 20),
+            child: Divider(height: 1,thickness: 1,color: Colors.grey[400],),
           ),
           Container(
             alignment: Alignment.center,

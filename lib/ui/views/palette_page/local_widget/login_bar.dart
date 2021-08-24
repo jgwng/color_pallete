@@ -31,7 +31,7 @@ class _PaletteLoginBarState extends State<PaletteLoginBar>{
                 style: TextButton.styleFrom(
                   primary: Colors.white, // foreground
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.pushReplacementNamed(context, '/palette'),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
                   child:Text('PALETTE',style: AppThemes.textTheme.caption,),

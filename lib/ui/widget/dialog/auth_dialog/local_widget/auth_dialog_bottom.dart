@@ -16,9 +16,9 @@ class AuthDialogBottom extends StatelessWidget{
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        StandardButton(buttonTitle: buttonTitle,onPressed: onPressed,hMargin: 40,vMargin: 20,),
+        StandardButton(buttonTitle: buttonTitle,onPressed: onPressed,hMargin: 20,vMargin: 20,),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: Divider(height: 1,thickness: 1,color: Colors.grey[300],),
         ),
         SizedBox(height:30),

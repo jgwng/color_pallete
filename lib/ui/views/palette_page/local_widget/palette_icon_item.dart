@@ -69,17 +69,15 @@ class _PaletteIconItemState extends State<PaletteIconItem>{
   String toolTipText(int index){
     switch(index){
       case 0:
-        return '';
+        return '팔레트에서 제외';
       case 1:
-        return '';
+        return '색상값 저장';
       case 2:
         return '';
       case 3:
-        return '';
+        return '색상값 복사';
       case 4:
-        return '';
-      case 5:
-        return '';
+        return '색상 고정';
     }
     return '';
   }

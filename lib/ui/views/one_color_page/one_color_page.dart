@@ -5,6 +5,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class OneColorPage extends StatefulWidget{
+  OneColorPage({this.color});
+  final String? color;
+
   @override
   _OneColorPageState createState() => _OneColorPageState();
 }
@@ -16,6 +19,20 @@ class _OneColorPageState extends State<OneColorPage>{
   bool pageIsScrolling = false;
   num? index;
   int scrollTime = 700;
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('aaaa');
+//    html.window.history.pushState({ 'page_id': 1, 'user_id': 5 }, '1', '/FFFFFF');
+
+
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +55,8 @@ class _OneColorPageState extends State<OneColorPage>{
             physics: NeverScrollableScrollPhysics(),
             pageSnapping: true,
             children: [
-              ColorCodeInfo(),
-              ColorVariationInfo(),
+              ColorCodeInfo(colorValue: 'FFFFFF',),
+              ColorVariationInfo(colorValue: 'FFFFFF',),
             ],
           ),
         ),
@@ -80,27 +97,4 @@ class _OneColorPageState extends State<OneColorPage>{
   //        return 'CMYK(${newColorValue.cyan.floor()},${newColorValue.magenta.floor()},${newColorValue.yellow.floor()},${newColorValue.black.floor()})';
 
 
-
-
-
-//  Widget colorTest(int index){
-//    int a = Colors.red.red;
-//    int b = Colors.red.green;
-//    int c = Colors.red.blue;
-//
-//
-//   var newColorValue = CmykColor.from(RgbColor(Colors.red.red,Colors.red.green,Colors.red.blue));
-////    var list = newColorValue.toFactoredList();
-////   print(list);
-////    newColorValue = newColorValue.cooler((index+1)*10);
-//    newColorValue = newColorValue.warmer((index+1)*10,relative: false);
-//    var newColor = RgbColor.from(newColorValue);
-//
-//
-//    return Container(
-//      width: 100,
-//      height: 40,
-//      color: Color.fromRGBO(newColor.red, newColor.green, newColor.blue, 1.0),
-//    );
-//  }
 }
