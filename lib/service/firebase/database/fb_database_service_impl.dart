@@ -24,18 +24,20 @@ class FBDatabaseServiceImpl extends FBDatabaseService{
 
   @override
   Future<void> saveColor(UserColor userColor) async{
-    final user = serviceLocator.get<AuthViewModel>();
-    String uid = user.baseUser.userUID!;
+    final userModel = serviceLocator.get<AuthViewModel>();
+    String uid = userModel.baseUser.userUID!;
+    Timestamp timeStamp = Timestamp.fromDate(userColor.createdAt!);
     Map<String,dynamic> colorInfo = userColor.toMap();
-    await fireStore.doc(FirestorePath.color(uid)).set(colorInfo);
+    await fireStore.doc(FirestorePath.color(uid,timeStamp.nanoseconds)).set(colorInfo);
   }
 
   @override
   Future<void> savePalette(UserPalette userPalette) async{
-    final user = serviceLocator.get<AuthViewModel>();
-    String uid = user.baseUser.userUID!;
+    final userModel = serviceLocator.get<AuthViewModel>();
+    String uid = userModel.baseUser.userUID!;
+    Timestamp timeStamp = Timestamp.fromDate(userPalette.createdAt!);
     Map<String,dynamic> paletteInfo = userPalette.toMap();
-    await fireStore.doc(FirestorePath.palette(uid)).set(paletteInfo);
+    await fireStore.doc(FirestorePath.palette(uid,timeStamp.nanoseconds)).set(paletteInfo);
   }
 
 }

@@ -1,6 +1,4 @@
-import 'package:colorpallete/business_models/models/palette.dart';
-import 'package:colorpallete/business_models/view_models/palette_view_model.dart';
-import 'package:colorpallete/service/firebase/database/fb_database_service.dart';
+import 'package:colorpallete/business_models/view_models/save_palette_view_model.dart';
 import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/ui/widget/dialog/local_widget/color_label_TFT.dart';
 import 'package:colorpallete/ui/widget/dialog/palette_detail_dialog/local_widget/palette_preview_total.dart';
@@ -15,24 +13,12 @@ class PaletteSaveDialog extends StatefulWidget{
 
 class _PaletteSaveDialogState extends State<PaletteSaveDialog>{
 
-  final firebaseDB = serviceLocator.get<FBDatabaseService>();
-
-  TextEditingController? nameController;
-  TextEditingController? memoController;
-
-  FocusNode? nameNode;
-  FocusNode? memoNode;
-  FocusNode? dialogNode;
+  final model = serviceLocator.get<SavePaletteInfoModel>();
 
   @override
   void initState(){
     super.initState();
-    nameController = TextEditingController();
-    memoController = TextEditingController();
-
-    nameNode = FocusNode();
-    memoNode = FocusNode();
-    dialogNode = FocusNode();
+    model.setPalette();
   }
 
   @override
@@ -46,29 +32,16 @@ class _PaletteSaveDialogState extends State<PaletteSaveDialog>{
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SaveDialogTitle(title :'팔레트 저장하기' ),
-            ColorLabelTFT(label : '팔레트 이름', controller : nameController!,node : nameNode!),
-            ColorLabelTFT(label : '간단 메모', controller : memoController!,node : memoNode!),
+            SaveDialogTitle(title :'팔레트 저장하기'),
+            ColorLabelTFT(label : '팔레트 이름',onChanged: (String text) => model.setPaletteName(text)),
+            ColorLabelTFT(label : '간단 메모',onChanged: (String text) => model.setPaletteMemo(text)),
             SizedBox(height:20),
-            PalettePreviewTotal(),
-            SaveDialogBottom(buttonTitle: '팔레트 저장하기',onPressed: (){})
+            PalettePreview(),
+            SaveDialogBottom(isColor: false)
           ],
         ),
       ),
     );
-
-  }
-  void savePaletteDB() async{
-
-    final palette = serviceLocator.get<PaletteViewModel>();
-
-    UserPalette userPalette = UserPalette();
-    userPalette.name = nameController!.text;
-    userPalette.memo = memoController!.text;
-    userPalette.colorCodeList = palette.basePalette;
-
-
-    await firebaseDB.savePalette(userPalette);
 
   }
 

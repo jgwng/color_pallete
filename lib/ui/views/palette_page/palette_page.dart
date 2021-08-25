@@ -5,6 +5,7 @@ import 'package:colorpallete/service/dialog/show_dialog.dart';
 import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/ui/views/palette_page/local_widget/login_bar.dart';
 import 'package:colorpallete/ui/views/palette_page/local_widget/palette_icon_item.dart';
+import 'package:colorpallete/utils/set_color_value.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -186,7 +187,7 @@ class _PalettePageState extends State<PalettePage>  {
                 opacity: (index == currentIndex) ? 1 : 0,
                 child: Column(
                   children: [
-                    PaletteIconItem(listIndex : index,index : 0),
+                    PaletteIconItem(listIndex : index,index :0),
                     SizedBox(height:20),
                     PaletteIconItem(listIndex : index,index :1),
                     SizedBox(height:20),
@@ -198,12 +199,11 @@ class _PalettePageState extends State<PalettePage>  {
                     SizedBox(height:20),
                     PaletteIconItem(listIndex : index,index :5),
                     SizedBox(height:100),
-
                   ],
                 ),
               ),
               Text('${provider.basePalette[index].value.toRadixString(16).substring(2).toUpperCase()}',textAlign: TextAlign.center,style: TextStyle(
-                  color : (provider.basePalette[index].computeLuminance() <=0.5) ? Colors.white : Colors.black,fontFamily: 'SpoqaHanSansNeo',fontSize:30,
+                  color : setTextColor(provider.basePalette[index]),fontFamily: 'SpoqaHanSansNeo',fontSize:30,
                   fontWeight: FontWeight.w700
               ),)
             ],

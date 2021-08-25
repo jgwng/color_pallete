@@ -55,8 +55,8 @@ class _OneColorPageState extends State<OneColorPage>{
             physics: NeverScrollableScrollPhysics(),
             pageSnapping: true,
             children: [
-              ColorCodeInfo(colorValue: 'FFFFFF',),
-              ColorVariationInfo(colorValue: 'FFFFFF',),
+              ColorCodeInfo(colorValue: '23AACC'),
+              ColorVariationInfo(colorValue: '23AACC'),
             ],
           ),
         ),

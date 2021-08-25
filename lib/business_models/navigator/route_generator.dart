@@ -23,8 +23,8 @@ class RouteGenerator {
     String parser;
 
     switch(route){
-      case '/FFFFFF':
-        parser = 'FFFFFF';
+      case '/23AACC':
+        parser = '23AACC';
         break;
       case '/main':
         parser = 'main';
@@ -52,8 +52,8 @@ class RouteGenerator {
             return PalettePage();
           case 'error':
             return ErrorPage();
-          case 'FFFFFF':
-            return OneColorPage();
+          case '23AACC':
+            return OneColorPage(color: parser);
           case 'main':
             return  HomePage();
           default:

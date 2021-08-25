@@ -2,10 +2,10 @@ import 'package:colorpallete/const/app_themes.dart';
 import 'package:flutter/material.dart';
 
 class ColorLabelTFT extends StatelessWidget{
-  ColorLabelTFT({required this.label,required this.controller,required this.node});
-  final TextEditingController controller;
-  final FocusNode node;
+  ColorLabelTFT({required this.label,required this.onChanged});
   final String label;
+  final Function(String)? onChanged;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -13,15 +13,14 @@ class ColorLabelTFT extends StatelessWidget{
       children: [
         Padding(
             padding: EdgeInsets.only(top: 20,bottom: 10,left:24),
-            child:  Text('$label',textAlign: TextAlign.left,style:AppThemes.textTheme.bodyText1)
+            child:  Text('$label',textAlign: TextAlign.left,style:AppThemes.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.w700))
         )
         ,Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(horizontal: 24),
             height: 40,
             child: TextField(
-              controller: controller,
-              focusNode: node,
+              onChanged: onChanged,
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.only(left:10,top:10),
                   hintText: label,

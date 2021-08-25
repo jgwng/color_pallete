@@ -1,3 +1,4 @@
+import 'package:colorpallete/utils/set_color_value.dart';
 import 'package:flutter/material.dart';
 
 class PaletteItem extends StatefulWidget{
@@ -52,7 +53,7 @@ class _PaletteItemState extends State<PaletteItem>{
                ),
              ),
              Text('${Colors.red.value.toRadixString(16).substring(2).toUpperCase()}',textAlign: TextAlign.center,style: TextStyle(
-                 color : (Colors.red.computeLuminance() <=0.5) ? Colors.white : Colors.black,fontFamily: 'SpoqaHanSansNeo',fontSize:30,
+                 color : setTextColor(Colors.red),fontFamily: 'SpoqaHanSansNeo',fontSize:30,
                  fontWeight: FontWeight.w700
              ),)
            ],

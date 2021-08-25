@@ -3,6 +3,7 @@ import 'package:colorpallete/business_models/view_models/palette_view_model.dart
 import 'package:colorpallete/const/app_text.dart';
 import 'package:colorpallete/service/service_locator.dart';
 import 'package:colorpallete/ui/widget/dialog/palette_detail_dialog/local_widget/palette_color_list.dart';
+import 'package:colorpallete/utils/set_color_value.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -79,7 +80,7 @@ class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
                   height: 300,
                   color: colorList![model.selectIndex],
                   child: ListView.separated(
-                    separatorBuilder: (ctx,i) => Divider(height: 1,thickness: 1,color: (colorList![colorIndex!].computeLuminance() <=0.5) ? Colors.white : Colors.black,),
+                    separatorBuilder: (ctx,i) => Divider(height: 1,thickness: 1,color: setTextColor(colorList![colorIndex!]),),
                     itemBuilder: (ctx,i) => colorDetailInfo(model,i),
                     itemCount: colorKindList!.length,
                     shrinkWrap: true,
@@ -112,12 +113,12 @@ class _PaletteDetailDialogState extends State<PaletteDetailDialog>{
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${colorKindList![index]}',style: TextStyle(color: (colorList![model.selectIndex].computeLuminance() <=0.5) ? Colors.white : Colors.black,fontSize: 14)),
+                    Text('${colorKindList![index]}',style: TextStyle(color: setTextColor(colorList![model.selectIndex]),fontSize: 14)),
                     SizedBox(height: 5,),
                     Text('${colorValue(model,index)}',style: TextStyle(fontFamily: 'SpoqaHanSansNeo',fontSize: 16),),
                   ],
                 ),
-                Text('색상값 복사하기',style: TextStyle(color: (index == currentIndex) ? ((colorList![model.selectIndex].computeLuminance() <=0.5) ? Colors.white : Colors.black) :Colors.transparent ,fontFamily: 'SpoqaHanSansNeo'))
+                Text('색상값 복사하기',style: TextStyle(color: (index == currentIndex) ? (setTextColor(colorList![model.selectIndex])) :Colors.transparent ,fontFamily: 'SpoqaHanSansNeo'))
               ],
             )),
       ),

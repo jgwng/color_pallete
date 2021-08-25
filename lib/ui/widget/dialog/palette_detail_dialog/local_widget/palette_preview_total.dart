@@ -2,7 +2,7 @@ import 'package:colorpallete/const/app_themes.dart';
 import 'package:colorpallete/ui/widget/dialog/palette_detail_dialog/local_widget/palette_preview_item.dart';
 import 'package:flutter/material.dart';
 
-class PalettePreviewTotal extends StatelessWidget{
+class PalettePreview extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {

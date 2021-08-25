@@ -2,6 +2,7 @@ import 'package:colorpallete/const/app_themes.dart';
 import 'package:colorpallete/ui/widget/dialog/saved_info_dialog/saved_palette_dialog/local_widget/palette_item_info.dart';
 import 'package:colorpallete/ui/widget/dialog/saved_info_dialog/saved_palette_dialog/local_widget/palette_memo_info.dart';
 import 'package:colorpallete/ui/widget/dialog/saved_info_dialog/saved_palette_dialog/local_widget/palette_name_info.dart';
+import 'package:colorpallete/utils/set_color_value.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -91,7 +92,7 @@ class _SavedPaletteDialogState extends State<SavedPaletteDialog>{
                         ),
                         alignment: Alignment.center,
                         child : Text('0x${colorList![currentIndex!].value.toRadixString(16).toUpperCase()}',style: TextStyle(
-                            color:(colorList![currentIndex!].computeLuminance() <=0.5) ? Colors.white : Colors.black,fontFamily: 'SpoqaHanSansNeo',fontSize: 14),)
+                            color:setTextColor(colorList![currentIndex!]),fontFamily: 'SpoqaHanSansNeo',fontSize: 14),)
                     ),
                   )
                 ),

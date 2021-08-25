@@ -8,9 +8,6 @@ class StandardButton extends StatelessWidget{
   final double? vMargin;
   final double? hMargin;
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
